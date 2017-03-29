@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <VKSdk.h>
 
 @interface AppDelegate ()
 
@@ -17,9 +19,33 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
+    [VKSdk initializeWithAppId:@"5953151"];
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                   openURL:url
+                                         sourceApplication:sourceApplication
+                                                annotation:annotation];
+    [VKSdk processOpenURL:url
+          fromApplication:sourceApplication];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *,id> *)options {
+    [VKSdk processOpenURL:url fromApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]];
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -39,6 +65,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBSDKAppEvents activateApp];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -71,7 +98,7 @@
                      * The device is out of space.
                      * The store could not be migrated to the current model version.
                      Check the error message to determine what the actual problem was.
-                    */
+                     */
                     NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }
