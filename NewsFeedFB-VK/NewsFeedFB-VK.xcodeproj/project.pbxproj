@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A333934F66AD361A3A27E4C /* libPods-NewsFeedFB-VK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3E7A7F057655563FE19D7E /* libPods-NewsFeedFB-VK.a */; };
+		B8CEEAB21E8BEAED00CE1594 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */; };
 		B8FE31F91E8AC74000DBB238 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31F81E8AC74000DBB238 /* main.m */; };
 		B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */; };
 		B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FE1E8AC74000DBB238 /* ViewController.m */; };
@@ -24,6 +25,8 @@
 /* Begin PBXFileReference section */
 		02099186FEA3B53C4F6E6F4D /* Pods-NewsFeedFB-VK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.release.xcconfig"; sourceTree = "<group>"; };
 		26C293DCE95EC804C4268FD7 /* Pods-NewsFeedFB-VK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.debug.xcconfig"; sourceTree = "<group>"; };
+		B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		B8FE31F41E8AC74000DBB238 /* NewsFeedFB-VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NewsFeedFB-VK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FE31F81E8AC74000DBB238 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B8FE31FA1E8AC74000DBB238 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */,
 				B8FE31FD1E8AC74000DBB238 /* ViewController.h */,
 				B8FE31FE1E8AC74000DBB238 /* ViewController.m */,
+				B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */,
+				B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */,
 				B8FE32001E8AC74000DBB238 /* Main.storyboard */,
 				B8FE32061E8AC74000DBB238 /* Assets.xcassets */,
 				B8FE32081E8AC74000DBB238 /* LaunchScreen.storyboard */,
@@ -246,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */,
+				B8CEEAB21E8BEAED00CE1594 /* FeedViewController.m in Sources */,
 				B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */,
 				B8FE31F91E8AC74000DBB238 /* main.m in Sources */,
 				B8FE32051E8AC74000DBB238 /* NewsFeedFB_VK.xcdatamodeld in Sources */,
@@ -314,7 +320,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -355,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -373,6 +379,7 @@
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
 				INFOPLIST_FILE = "NewsFeedFB-VK/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ViktoriiaVovk.NewsFeedFB-VK";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -390,6 +397,7 @@
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
 				INFOPLIST_FILE = "NewsFeedFB-VK/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ViktoriiaVovk.NewsFeedFB-VK";
 				PRODUCT_NAME = "$(TARGET_NAME)";
