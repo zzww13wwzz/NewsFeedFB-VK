@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9A333934F66AD361A3A27E4C /* libPods-NewsFeedFB-VK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3E7A7F057655563FE19D7E /* libPods-NewsFeedFB-VK.a */; };
+		B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */; };
+		B87519F31E8D5C2900A1D178 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E81E8D5C2900A1D178 /* Group.m */; };
+		B87519F41E8D5C2900A1D178 /* Group+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519EA1E8D5C2900A1D178 /* Group+CoreDataProperties.m */; };
+		B87519F51E8D5C2900A1D178 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519EC1E8D5C2900A1D178 /* Item.m */; };
+		B87519F61E8D5C2900A1D178 /* Item+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519EE1E8D5C2900A1D178 /* Item+CoreDataProperties.m */; };
+		B87519F71E8D5C2900A1D178 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519F01E8D5C2900A1D178 /* User.m */; };
+		B87519F81E8D5C2900A1D178 /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519F21E8D5C2900A1D178 /* User+CoreDataProperties.m */; };
+		B87519FB1E8D64CB00A1D178 /* VKAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519FA1E8D64CB00A1D178 /* VKAPI.m */; };
 		B8CEEAB21E8BEAED00CE1594 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */; };
 		B8FE31F91E8AC74000DBB238 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31F81E8AC74000DBB238 /* main.m */; };
 		B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */; };
@@ -25,6 +33,23 @@
 /* Begin PBXFileReference section */
 		02099186FEA3B53C4F6E6F4D /* Pods-NewsFeedFB-VK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.release.xcconfig"; sourceTree = "<group>"; };
 		26C293DCE95EC804C4268FD7 /* Pods-NewsFeedFB-VK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.debug.xcconfig"; sourceTree = "<group>"; };
+		B87519DF1E8D184F00A1D178 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B87519E01E8D2ACB00A1D178 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
+		B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
+		B87519E71E8D5C2900A1D178 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		B87519E81E8D5C2900A1D178 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		B87519E91E8D5C2900A1D178 /* Group+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Group+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B87519EA1E8D5C2900A1D178 /* Group+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Group+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B87519EB1E8D5C2900A1D178 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		B87519EC1E8D5C2900A1D178 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		B87519ED1E8D5C2900A1D178 /* Item+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Item+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B87519EE1E8D5C2900A1D178 /* Item+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Item+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B87519EF1E8D5C2900A1D178 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		B87519F01E8D5C2900A1D178 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B87519F11E8D5C2900A1D178 /* User+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B87519F21E8D5C2900A1D178 /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B87519F91E8D64CB00A1D178 /* VKAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKAPI.h; sourceTree = "<group>"; };
+		B87519FA1E8D64CB00A1D178 /* VKAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAPI.m; sourceTree = "<group>"; };
 		B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		B8FE31F41E8AC74000DBB238 /* NewsFeedFB-VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NewsFeedFB-VK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,9 +95,51 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B87519E41E8D2B6700A1D178 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B8FE31FD1E8AC74000DBB238 /* ViewController.h */,
+				B8FE31FE1E8AC74000DBB238 /* ViewController.m */,
+				B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */,
+				B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B87519E51E8D2B7800A1D178 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B87519E01E8D2ACB00A1D178 /* FeedTableViewCell.h */,
+				B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		B87519E61E8D5C2900A1D178 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B87519E71E8D5C2900A1D178 /* Group.h */,
+				B87519E81E8D5C2900A1D178 /* Group.m */,
+				B87519E91E8D5C2900A1D178 /* Group+CoreDataProperties.h */,
+				B87519EA1E8D5C2900A1D178 /* Group+CoreDataProperties.m */,
+				B87519EB1E8D5C2900A1D178 /* Item.h */,
+				B87519EC1E8D5C2900A1D178 /* Item.m */,
+				B87519ED1E8D5C2900A1D178 /* Item+CoreDataProperties.h */,
+				B87519EE1E8D5C2900A1D178 /* Item+CoreDataProperties.m */,
+				B87519EF1E8D5C2900A1D178 /* User.h */,
+				B87519F01E8D5C2900A1D178 /* User.m */,
+				B87519F11E8D5C2900A1D178 /* User+CoreDataProperties.h */,
+				B87519F21E8D5C2900A1D178 /* User+CoreDataProperties.m */,
+				B87519F91E8D64CB00A1D178 /* VKAPI.h */,
+				B87519FA1E8D64CB00A1D178 /* VKAPI.m */,
+			);
+			path = Base;
+			sourceTree = SOURCE_ROOT;
+		};
 		B8FE31EB1E8AC74000DBB238 = {
 			isa = PBXGroup;
 			children = (
+				B87519DF1E8D184F00A1D178 /* PrefixHeader.pch */,
 				B8FE31F61E8AC74000DBB238 /* NewsFeedFB-VK */,
 				B8FE31F51E8AC74000DBB238 /* Products */,
 				3269C6065D90A4F90610EE19 /* Pods */,
@@ -91,12 +158,11 @@
 		B8FE31F61E8AC74000DBB238 /* NewsFeedFB-VK */ = {
 			isa = PBXGroup;
 			children = (
+				B87519E61E8D5C2900A1D178 /* Base */,
+				B87519E51E8D2B7800A1D178 /* Cell */,
+				B87519E41E8D2B6700A1D178 /* Controllers */,
 				B8FE31FA1E8AC74000DBB238 /* AppDelegate.h */,
 				B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */,
-				B8FE31FD1E8AC74000DBB238 /* ViewController.h */,
-				B8FE31FE1E8AC74000DBB238 /* ViewController.m */,
-				B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */,
-				B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */,
 				B8FE32001E8AC74000DBB238 /* Main.storyboard */,
 				B8FE32061E8AC74000DBB238 /* Assets.xcassets */,
 				B8FE32081E8AC74000DBB238 /* LaunchScreen.storyboard */,
@@ -251,10 +317,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */,
+				B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */,
 				B8CEEAB21E8BEAED00CE1594 /* FeedViewController.m in Sources */,
+				B87519F71E8D5C2900A1D178 /* User.m in Sources */,
 				B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */,
 				B8FE31F91E8AC74000DBB238 /* main.m in Sources */,
+				B87519F81E8D5C2900A1D178 /* User+CoreDataProperties.m in Sources */,
+				B87519F41E8D5C2900A1D178 /* Group+CoreDataProperties.m in Sources */,
+				B87519F31E8D5C2900A1D178 /* Group.m in Sources */,
+				B87519F51E8D5C2900A1D178 /* Item.m in Sources */,
+				B87519F61E8D5C2900A1D178 /* Item+CoreDataProperties.m in Sources */,
 				B8FE32051E8AC74000DBB238 /* NewsFeedFB_VK.xcdatamodeld in Sources */,
+				B87519FB1E8D64CB00A1D178 /* VKAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +452,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(NewsFeedFb-VK)/PrefixHeader.pch";
 				INFOPLIST_FILE = "NewsFeedFB-VK/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -396,6 +472,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(NewsFeedFb-VK)/PrefixHeader.pch";
 				INFOPLIST_FILE = "NewsFeedFB-VK/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
