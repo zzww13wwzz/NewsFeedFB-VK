@@ -107,19 +107,20 @@
                 isMobileOnline = profile[@"online_mobile"];
             }
             
-//            [User userWithID:profile[@"id"]
-//                   firstName:profile[@"first_name"]
-//                    lastName:profile[@"last_name"]
-//                    isOnline:profile[@"online"]
-//              isMobileOnline:isMobileOnline
-//                    photoURL:profile[@"photo_100"]];
+            [User userWithID:[profile[@"id"] stringValue]
+                   firstName:profile[@"first_name"]
+                    lastName:profile[@"last_name"]
+                    isOnline:profile[@"online"]
+              isMobileOnline:isMobileOnline
+                    photoURL:profile[@"photo_100"]
+                   accessKey:@""];
         }
         for (NSDictionary * group in json[@"response"][@"groups"]) {
             NSLog(@"group = %@", group);
-//            [Group groupWithID:group[@"id"]
-//                          name:group[@"name"]
-//                          type:group[@"type"]
-//                      photoURL:group[@"photo_100"]];
+            [Group groupWithID:[group[@"id"] stringValue]
+                          name:group[@"name"]
+                          type:group[@"type"]
+                      photoURL:group[@"photo_100"]];
         }
         for (NSDictionary * item in json[@"response"][@"items"]) {
             NSArray * mediaURLs = nil;
@@ -137,7 +138,7 @@
                 } else if ([item[@"attachments"][@"type"] isEqualToString:@"graffiti"]) {
                     
                 } else if ([item[@"attachments"][@"type"] isEqualToString:@"link"]) {
-                    mediaURLs =item[@"attachments"][@"link"];
+                    //mediaURLs =item[@"attachments"][@"link"];
                 } else if ([item[@"attachments"][@"type"] isEqualToString:@"note"]) {
                     
                 } else if ([item[@"attachments"][@"type"] isEqualToString:@"app"]) {
@@ -157,19 +158,19 @@
                 } else if ([item[@"attachments"][@"type"] isEqualToString:@"sticker"]) {
                     
                 }
-                     
-
+                
+                
             }
             NSLog(@"groitemup = %@", item);
             if ([item[@"type"] isEqualToString:@"post"]) {
-//                [Item itemWithPostID:item[@"post_id"]
-//                                date:item[@"date"]
-//                                text:item[@"text"]
-//                                type:item[@"type"]
-//                           mediaURLs:mediaURLs
-//                               likes:item[@"likes"][@"count"]
-//                            reposted:item[@"reposts"][@"count"]
-//                               owner:item[@"source_id"]];
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:item[@"text"]
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:item[@"likes"][@"count"]
+                            reposted:item[@"reposts"][@"count"]
+                               owner:item[@"source_id"]];
             }
             if ([item[@"type"] isEqualToString:@"photo"]) {
                 
@@ -196,36 +197,39 @@
             if ([item[@"type"] isEqualToString:@"video"]) {
                 
             }
-
             
             
-//            post — новые записи со стен;
-//            photo — новые фотографии;
-//            photo_tag — новые отметки на фотографиях;
-//            wall_photo — новые фотографии на стенах;
-//            friend — новые друзья;
-//            note — новые заметки;
-//            audio — записи сообществ и друзей, содержащие аудиозаписи, а также новые аудиозаписи, добавленные ими;
-//            video — новые видеозаписи.
             
-//            if (item[@"attachments"]) {
-//                
-//            }
+            //            post — новые записи со стен;
+            //            photo — новые фотографии;
+            //            photo_tag — новые отметки на фотографиях;
+            //            wall_photo — новые фотографии на стенах;
+            //            friend — новые друзья;
+            //            note — новые заметки;
+            //            audio — записи сообществ и друзей, содержащие аудиозаписи, а также новые аудиозаписи, добавленные ими;
+            //            video — новые видеозаписи.
+            
+            //            if (item[@"attachments"]) {
+            //
+            //            }
             
             
-//            [Item itemWithPostID:item[@"post_id"]
-//                            date:item[@"date"]
-//                            text:item[@"text"]
-//                            type:item[@"type"]
-//                       mediaURLs:item[@""]
-//                           likes:item[@"likes"][@"count"]
-//                        reposted:item[@"reposts"][@"count"]
-//                           owner:item[@""]];
+            //            [Item itemWithPostID:item[@"post_id"]
+            //                            date:item[@"date"]
+            //                            text:item[@"text"]
+            //                            type:item[@"type"]
+            //                       mediaURLs:item[@""]
+            //                           likes:item[@"likes"][@"count"]
+            //                        reposted:item[@"reposts"][@"count"]
+            //                           owner:item[@""]];
         }
         
     }
     
 }
 
+- (NSDate *)dateFormatted:(NSNumber*)time {
+    return [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+}
 
 @end
