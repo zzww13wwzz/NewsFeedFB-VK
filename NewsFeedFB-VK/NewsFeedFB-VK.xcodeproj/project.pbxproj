@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A333934F66AD361A3A27E4C /* libPods-NewsFeedFB-VK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3E7A7F057655563FE19D7E /* libPods-NewsFeedFB-VK.a */; };
+		B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86686AC1E8E644100859C21 /* FeedTableViewController.m */; };
 		B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */; };
 		B87519F31E8D5C2900A1D178 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E81E8D5C2900A1D178 /* Group.m */; };
 		B87519F41E8D5C2900A1D178 /* Group+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519EA1E8D5C2900A1D178 /* Group+CoreDataProperties.m */; };
@@ -16,7 +17,6 @@
 		B87519F71E8D5C2900A1D178 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519F01E8D5C2900A1D178 /* User.m */; };
 		B87519F81E8D5C2900A1D178 /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519F21E8D5C2900A1D178 /* User+CoreDataProperties.m */; };
 		B87519FB1E8D64CB00A1D178 /* VKAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519FA1E8D64CB00A1D178 /* VKAPI.m */; };
-		B8CEEAB21E8BEAED00CE1594 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */; };
 		B8FE31F91E8AC74000DBB238 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31F81E8AC74000DBB238 /* main.m */; };
 		B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */; };
 		B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FE1E8AC74000DBB238 /* ViewController.m */; };
@@ -33,6 +33,8 @@
 /* Begin PBXFileReference section */
 		02099186FEA3B53C4F6E6F4D /* Pods-NewsFeedFB-VK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.release.xcconfig"; sourceTree = "<group>"; };
 		26C293DCE95EC804C4268FD7 /* Pods-NewsFeedFB-VK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.debug.xcconfig"; sourceTree = "<group>"; };
+		B86686AB1E8E644100859C21 /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
+		B86686AC1E8E644100859C21 /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
 		B87519DF1E8D184F00A1D178 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B87519E01E8D2ACB00A1D178 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
@@ -50,8 +52,6 @@
 		B87519F21E8D5C2900A1D178 /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B87519F91E8D64CB00A1D178 /* VKAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKAPI.h; sourceTree = "<group>"; };
 		B87519FA1E8D64CB00A1D178 /* VKAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKAPI.m; sourceTree = "<group>"; };
-		B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		B8FE31F41E8AC74000DBB238 /* NewsFeedFB-VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NewsFeedFB-VK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FE31F81E8AC74000DBB238 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B8FE31FA1E8AC74000DBB238 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -100,8 +100,8 @@
 			children = (
 				B8FE31FD1E8AC74000DBB238 /* ViewController.h */,
 				B8FE31FE1E8AC74000DBB238 /* ViewController.m */,
-				B8CEEAB01E8BEAED00CE1594 /* FeedViewController.h */,
-				B8CEEAB11E8BEAED00CE1594 /* FeedViewController.m */,
+				B86686AB1E8E644100859C21 /* FeedTableViewController.h */,
+				B86686AC1E8E644100859C21 /* FeedTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -318,10 +318,10 @@
 			files = (
 				B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */,
 				B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */,
-				B8CEEAB21E8BEAED00CE1594 /* FeedViewController.m in Sources */,
 				B87519F71E8D5C2900A1D178 /* User.m in Sources */,
 				B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */,
 				B8FE31F91E8AC74000DBB238 /* main.m in Sources */,
+				B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */,
 				B87519F81E8D5C2900A1D178 /* User+CoreDataProperties.m in Sources */,
 				B87519F41E8D5C2900A1D178 /* Group+CoreDataProperties.m in Sources */,
 				B87519F31E8D5C2900A1D178 /* Group.m in Sources */,

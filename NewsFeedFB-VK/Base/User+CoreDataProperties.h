@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *userID;
 @property (nullable, nonatomic, copy) NSString *firstName;
 @property (nullable, nonatomic, copy) NSString *lastName;
-@property (nullable, nonatomic, copy) NSString *accessKey;
 @property (nullable, nonatomic, retain) NSNumber *isOnline;
 @property (nullable, nonatomic, retain) NSNumber *isMobileOnline;
 @property (nullable, nonatomic, copy) NSString *photoURL;

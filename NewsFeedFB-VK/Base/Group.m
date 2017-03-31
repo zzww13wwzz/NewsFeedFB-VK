@@ -22,9 +22,7 @@
     }
     group.groupID = groupID;
     group.name = name;
-    if (photoURL) {
-        group.photoURL = photoURL;
-    }
+    group.photoURL = photoURL;
     group.type = type;
     
     return group;

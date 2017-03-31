@@ -79,11 +79,15 @@
             }
         }];
         
-        //        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"FeedVC"]
-        //                                             animated:YES];
+        [self.navigationController presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"FeedVC"]
+                           animated:YES
+                         completion:nil];
+        
+//        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"FeedVC"]
+//                                             animated:YES];
         
     } else {
-        [self showAlertWithString:@"NOT LOGED IN!!!" withError:nil];
+        [self showAlertWithString:@"Login please" withError:nil];
     }
 }
 

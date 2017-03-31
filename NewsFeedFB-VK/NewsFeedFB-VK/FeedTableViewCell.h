@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FeedTableViewCell : UITableViewCell
-
+@property (nonatomic) Item * item;
 @end

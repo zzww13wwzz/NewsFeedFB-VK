@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *postID;
 @property (nullable, nonatomic, copy) NSString *owner;
 @property (nullable, nonatomic, copy) NSString *text;
-@property (nullable, nonatomic, retain) NSObject *mediaURLs;
+@property (nullable, nonatomic, copy) NSArray *mediaURLs;
 @property (nullable, nonatomic, copy) NSString *likes;
 @property (nullable, nonatomic, copy) NSString *reposted;
 @property (nullable, nonatomic, copy) NSDate *date;

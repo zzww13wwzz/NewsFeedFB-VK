@@ -13,6 +13,10 @@
 #import <UIKit/UIKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
+#import "Group.h"
+#import "Item.h"
+#import "User.h"
+
 #import "AppDelegate.h"
 #import "CoreData+MagicalRecord.h"
 

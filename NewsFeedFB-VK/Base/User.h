@@ -20,8 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
              lastName:(NSString *)lastName
              isOnline:(NSNumber *)isOnline
        isMobileOnline:(NSNumber *)isMobileOnline
-             photoURL:(NSString *)photoURL
-            accessKey:(NSString *)accessKey;
+             photoURL:(NSString *)photoURL;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -18,7 +18,6 @@
 @dynamic firstName;
 @dynamic lastName;
 @dynamic isOnline;
-@dynamic accessKey;
 @dynamic isMobileOnline;
 @dynamic photoURL;
 @dynamic hasItem;
