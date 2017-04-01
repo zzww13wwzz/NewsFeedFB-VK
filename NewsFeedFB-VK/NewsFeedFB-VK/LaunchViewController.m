@@ -25,7 +25,7 @@
     
     [VKSdk wakeUpSession:scope completeBlock:^(VKAuthorizationState state, NSError *error) {
         if (state == VKAuthorizationAuthorized) {
-            // Authorized and ready to go
+            
         }  else if (state == VKAuthorizationInitialized){
             [VKSdk authorize:scope];
         } else {

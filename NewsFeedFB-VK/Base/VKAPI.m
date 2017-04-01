@@ -11,77 +11,39 @@
 #import "Item.h"
 #import "User.h"
 #import <VKSdk.h>
+#import "Reachability.h"
 
 @implementation VKAPI
 
++ (BOOL)isInternetAvailable {
+    
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    
+    if (internetStatus != NotReachable) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
 
-
-//+ (void)getVKAccessTokenWithURL:(NSURL *)url
-//                     completion:(void (^)(NSString * message))completion
-//{
-//    NSString *currentURL = url.absoluteString;
-//    NSRange textRange =[[currentURL lowercaseString] rangeOfString:[@"access_token" lowercaseString]];
-//    
-//    if(textRange.location != NSNotFound) {
-//        NSArray* data = [currentURL componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
-//        //NSString
-//        
-//        [[NSUserDefaults standardUserDefaults] setObject:[data objectAtIndex:1] forKey:@"VKAccessToken"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[data objectAtIndex:5] forKey:@"VKAccessUserId"];
-//        [[NSUserDefaults standardUserDefaults] setObject:[data objectAtIndex:3] forKey:@"expires_in"];
-//
-//        
-//        PERFORM_BLOCK(completion, nil);
-//        
-//    } else {
-//        textRange =[[currentURL lowercaseString] rangeOfString:[@"access_denied" lowercaseString]];
-//        
-//        if (textRange.location != NSNotFound) {
-//            PERFORM_BLOCK(completion, @"Access denied.");
-//        }
-//    }
-//}
-
-//+ (void)getJsonVKWithCompletion:(void (^)(NSError * error))completion {
-//    NSError *error = nil;
-//    NSHTTPURLResponse *responseCode = nil;
-//    
-//    NSString * token = [[NSUserDefaults standardUserDefaults] objectForKey:@"VKAccessToken"];
-//    
-//    
-//    NSString *url = [NSString stringWithFormat:@"https://api.vk.com/method/newsfeed.get?PARAMETERS&access_token=%@&v=5.63", token];
-//    
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//    [request setHTTPMethod:@"GET"];
-//    [request setURL:[NSURL URLWithString:url]];
-//    
-//    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request
-//                                                  returningResponse:&responseCode
-//                                                              error:&error];
-//    
-//    if([responseCode statusCode] != 200){
-//        NSLog(@"Error getting %@, HTTP status code %li", url, (long)[responseCode statusCode]);
-//        PERFORM_BLOCK(completion, error);
-//    }
-//    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:oResponseData
-//                                                         options:kNilOptions
-//                                                           error:&error];
-//    [self parserJson:json];
-//    
-//    if (error) {
-//        PERFORM_BLOCK(completion, error);
-//    } else {
-//        PERFORM_BLOCK(completion, nil);
-//    }
-//}
-
++ (void)setupReachability {
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (![[self class] isInternetAvailable]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_internet_connection_lost
+                                                                object:nil];
+        }
+    }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
 
 + (void)getDataWithCompletion:(void (^)(NSError * error))completion {
     
     VKRequest * getWall = [VKRequest requestWithMethod:@"newsfeed.get" parameters:@{VK_API_OWNER_ID : @"-1"}];
     
     [getWall executeWithResultBlock:^(VKResponse * response) {
-        NSLog(@"Json result: %@", response.json);
+        //NSLog(@"Json result: %@", response.json);
         if (response.json) {
             BOOL isDoneParse = [self parseJson:response.json];
             if (isDoneParse) {
@@ -102,68 +64,180 @@
 }
 
 + (BOOL)parseJson:(NSDictionary*)json {
-
-        if (json[@"profiles"]) {
-            for (NSDictionary * profile in json[@"profiles"]) {
-                
-                //                NSLog(@"[profile string] = %@, %@, %@, %@, %@, %@",[profile[@"id"] stringValue], profile[@"first_name"], profile[@"last_name"], profile[@"online"], profile[@"online_mobile"], profile[@"photo_100"] );
-                
-                [User userWithID:[profile[@"id"] stringValue]
-                       firstName:profile[@"first_name"]
-                        lastName:profile[@"last_name"]
-                        isOnline:profile[@"online"]
-                  isMobileOnline:profile[@"online_mobile"]
-                        photoURL:profile[@"photo_100"]];
-            }
-        }
-        if (json[@"groups"]) {
-            for (NSDictionary * group in json[@"groups"]) {
-                
-                //                NSLog(@"group = %@", group);
-                [Group groupWithID:[group[@"id"] stringValue]
-                              name:group[@"name"]
-                              type:group[@"type"]
-                          photoURL:group[@"photo_100"]];
-            }
-        }
-        if (json[@"items"]) {
-            for (NSDictionary * item in json[@"items"]) {
-                NSMutableArray * mediaURLs = [NSMutableArray new];
-                if ([item[@"type"] isEqualToString:@"post"]) {
-                    //NSLog(@"item = %@", item);
-                    NSArray * attachments = item[@"attachments"];
-                    if (attachments.count > 0) {
-                        for (NSArray * obj in attachments) {
-                            if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
-                                [mediaURLs addObject:[obj valueForKey:@"photo"]];
-                            }
+    
+    if (json[@"items"]) {
+        for (NSDictionary * item in json[@"items"]) {
+            NSMutableArray * mediaURLs = [NSMutableArray new];
+            
+            if ([item[@"type"] isEqualToString:@"post"]) {
+                NSArray * attachments = item[@"attachments"];
+                if (attachments.count > 0) {
+                    for (NSArray * obj in attachments) {
+                        if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
+                            [mediaURLs addObject:[obj valueForKey:@"photo"]];
                         }
                     }
-                    NSLog(@"MEDIA = %@", mediaURLs);
-                    
-                    [Item itemWithPostID:[item[@"post_id"] stringValue]
-                                    date:[self dateFormatted:item[@"date"]]
-                                    text:item[@"text"]
-                                    type:item[@"type"]
-                               mediaURLs:mediaURLs
-                                   likes:[item[@"likes"][@"count"] stringValue]
-                                reposted:[item[@"reposts"][@"count"] stringValue]
-                                   owner:[item[@"source_id"] stringValue]];
                 }
                 
-                if ([item[@"type"] isEqualToString:@"photo"]) {
-                    
-                    //                    [Item itemWithPostID:[item[@"id"] stringValue]
-                    //                                    date:[self dateFormatted:item[@"date"]]
-                    //                                    text:item[@"text"]
-                    //                                    type:item[@"type"]
-                    //                               mediaURLs:mediaURLs
-                    //                                   likes:[item[@"likes"][@"count"] stringValue]
-                    //                                reposted:[item[@"reposts"][@"count"] stringValue]
-                    //                                   owner:[item[@"source_id"] stringValue]];
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:item[@"text"]
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:[item[@"likes"][@"count"] stringValue]
+                            reposted:[item[@"reposts"][@"count"] stringValue]
+                               owner:[item[@"source_id"] stringValue]];
+            }
+            
+            if ([item[@"type"] isEqualToString:@"photo"]) {
+                
+                NSArray * photos = item[@"photos"];
+                if (photos.count > 0) {
+                    for (NSArray * obj in item[@"photos"][@"items"]) {
+                        [mediaURLs addObject:obj];
+                    }
                 }
+                
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+            }
+            if ([item[@"type"] isEqualToString:@"photo_tag"]) {
+                
+                NSArray * photos = item[@"photo_tags"];
+                if (photos.count > 0) {
+                    for (NSArray * obj in item[@"photo_tags"][@"items"]) {
+                        [mediaURLs addObject:obj];
+                    }
+                }
+                
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+            }
+            if ([item[@"type"] isEqualToString:@"wall_photo"]) {
+                
+                NSArray * photos = item[@"photos"];
+                if (photos.count > 0) {
+                    for (NSArray * obj in item[@"photos"][@"items"]) {
+                        [mediaURLs addObject:obj];
+                    }
+                }
+                
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+            }
+            if ([item[@"type"] isEqualToString:@"friend"]) {
+                
+                NSArray * friends = item[@"friends"];
+                if (friends.count > 0) {
+                    for (NSArray * obj in item[@"friends"][@"items"]) {
+                        [mediaURLs addObject:[obj valueForKey:@"user_id"]];
+                    }
+                }
+                
+                [Item itemWithPostID:@""
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+            }
+            if ([item[@"type"] isEqualToString:@"note"]) {
+                /*
+                NSArray * photos = item[@"photos"];
+                if (photos.count > 0) {
+                    for (NSArray * obj in item[@"photos"][@"items"]) {
+                        [mediaURLs addObject:obj];
+                    }
+                }
+                
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+                 */
+            }
+            if ([item[@"type"] isEqualToString:@"audio"]) {
+
+                NSArray * audio = item[@"audio"];
+                if (audio.count > 0) {
+                    for (NSArray * obj in item[@"audio"][@"items"]) {
+                        [mediaURLs addObject:obj];
+                    }
+                }
+                
+                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+                
+            }
+            if ([item[@"type"] isEqualToString:@"video"]) {
+                /*
+                 NSArray * photos = item[@"audios"];
+                 if (photos.count > 0) {
+                 for (NSArray * obj in item[@"photos"][@"items"]) {
+                 [mediaURLs addObject:obj];
+                 }
+                 }
+                 
+                 [Item itemWithPostID:[item[@"post_id"] stringValue]
+                 date:[self dateFormatted:item[@"date"]]
+                 text:@""
+                 type:item[@"type"]
+                 mediaURLs:mediaURLs
+                 likes:@""
+                 reposted:@""
+                 owner:[item[@"source_id"] stringValue]];
+                 */
             }
         }
+    }
+    if (json[@"profiles"]) {
+        for (NSDictionary * profile in json[@"profiles"]) {
+            [User userWithID:[profile[@"id"] stringValue]
+                   firstName:profile[@"first_name"]
+                    lastName:profile[@"last_name"]
+                    isOnline:profile[@"online"]
+              isMobileOnline:profile[@"online_mobile"]
+                    photoURL:profile[@"photo_100"]];
+        }
+    }
+    if (json[@"groups"]) {
+        for (NSDictionary * group in json[@"groups"]) {
+            [Group groupWithID:[group[@"id"] stringValue]
+                          name:group[@"name"]
+                          type:group[@"type"]
+                      photoURL:group[@"photo_100"]];
+        }
+    }
     return YES;
 }
 

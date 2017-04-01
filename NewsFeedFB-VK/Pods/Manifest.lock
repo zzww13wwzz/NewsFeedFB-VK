@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
   - MagicalRecord/Shorthand (2.2)
   - MBProgressHUD (1.0.0)
   - SDWebImage (4.0.0):
@@ -7,6 +22,7 @@ PODS:
   - VK-ios-sdk (1.4.6)
 
 DEPENDENCIES:
+  - AFNetworking
   - MagicalRecord/Shorthand
   - MBProgressHUD (from `https://github.com/jdg/MBProgressHUD.git`, tag `1.0.0`)
   - SDWebImage
@@ -23,11 +39,12 @@ CHECKOUT OPTIONS:
     :tag: 1.0.0
 
 SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   MagicalRecord: 2dc87179ae7c1f2a274442624ec65a07d4357a6f
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: e817bf524fac75069f1c0adc3afa9fc2a56f6292
+PODFILE CHECKSUM: a83e0845b3b7d735a8d9458337d5d1c73234878e
 
 COCOAPODS: 1.2.0

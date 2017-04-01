@@ -13,9 +13,11 @@
 #import "FeedTableViewController.h"
 
 
+
 @interface LoginViewController () <VKSdkDelegate, VKSdkUIDelegate>
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @end
 
@@ -30,6 +32,12 @@
 }
 
 - (void) fetchVkState {
+    if (![VKAPI isInternetAvailable]){
+        self.messageLabel.text = @"Please check your internet connection for sign in";
+    } else {
+        self.messageLabel.text = @"Please sign in:";
+    }
+    
     [ApplicationDelegate showMBProgressHUDWithTitle:nil
                                            subTitle:nil
                                                view:self.view];
@@ -51,13 +59,11 @@
                 [ApplicationDelegate.mbprogressHUD hideAnimated:NO];
                 [self.vkLoginButton setTitle:@"Logged in VK" forState:UIControlStateNormal];
                 self.vkLoginButton.backgroundColor = [UIColor lightGrayColor];
-                self.vkLoginButton.userInteractionEnabled = false;
+                //self.vkLoginButton.userInteractionEnabled = false;
                 self.nextButton.userInteractionEnabled = true;
                 self.nextButton.backgroundColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:1.0];
                 [self.nextButton setTitle:@"Go" forState:UIControlStateNormal];
-                
-                
-
+                self.messageLabel.text = @"You can go next";
                 
             }  else if (state == VKAuthorizationInitialized){
                 [ApplicationDelegate.mbprogressHUD hideAnimated:NO];
@@ -70,7 +76,8 @@
             
         }];
     } else {
-        
+        [VKSdk forceLogout];
+        [ApplicationDelegate.mbprogressHUD hideAnimated:NO];
     }
     
     //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"VKAccessToken"]) {

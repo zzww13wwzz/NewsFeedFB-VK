@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface VKAPI : NSObject
 
-//+ (void)getVKAccessTokenWithURL:(NSURL *)url
-//                     completion:(void (^)(NSString * message))completion;
-//
-//+ (void)getJsonVKWithCompletion:(void (^)(NSError * error))completion;
++ (BOOL)isInternetAvailable;
++ (void)setupReachability;
+
 + (void)getDataWithCompletion:(void (^)(NSError * error))completion;
 + (BOOL)parseJson:(NSDictionary*)json;
 + (NSDate *)dateFormatted:(NSNumber*)time;

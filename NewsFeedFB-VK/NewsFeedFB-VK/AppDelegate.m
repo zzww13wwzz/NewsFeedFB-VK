@@ -111,7 +111,30 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [FBSDKAppEvents activateApp];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(internetConnectionLost)
+                                                 name:NOTIFICATION_internet_connection_lost
+                                               object:nil];
+    
+    [VKAPI setupReachability];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+}
+
+- (void) internetConnectionLost
+{
+    if(_mbprogressHUD.alpha != 0) {
+        [_mbprogressHUD hideAnimated:NO];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Error"
+                                    message:@"Internet connection lost, please try again later."
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil, nil]
+         show];
+        return;
+    }
 }
 
 

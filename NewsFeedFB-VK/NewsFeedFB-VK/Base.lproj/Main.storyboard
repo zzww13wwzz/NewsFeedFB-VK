@@ -61,13 +61,25 @@
                                     <action selector="vkontakteAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pjB-TQ-yKJ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check your internet connection for sign in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-jy-jZx">
+                                <rect key="frame" x="56" y="163.5" width="262" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="p64-zc-9G1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="L6l-lK-Bye" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9XU-DN-1B8"/>
+                            <constraint firstItem="cW6-yG-7Mu" firstAttribute="top" secondItem="bc8-jy-jZx" secondAttribute="bottom" constant="40" id="Cwy-Fg-09L"/>
+                            <constraint firstItem="bc8-jy-jZx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="Jlb-Ld-1s2"/>
                             <constraint firstItem="oOs-KI-w7L" firstAttribute="top" secondItem="cW6-yG-7Mu" secondAttribute="bottom" constant="25" id="K96-S9-em3"/>
                             <constraint firstItem="cW6-yG-7Mu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OdA-6H-KIN"/>
                             <constraint firstItem="oOs-KI-w7L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="StI-pB-Fmh"/>
+                            <constraint firstItem="bc8-jy-jZx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TCb-Jy-foP"/>
                             <constraint firstItem="oOs-KI-w7L" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qog-Mm-U0c"/>
                             <constraint firstItem="L6l-lK-Bye" firstAttribute="top" secondItem="oOs-KI-w7L" secondAttribute="bottom" constant="25" id="roM-0E-YSh"/>
                         </constraints>
@@ -75,6 +87,7 @@
                     <navigationItem key="navigationItem" id="IVX-9u-6tu"/>
                     <connections>
                         <outlet property="fbLoginButton" destination="cW6-yG-7Mu" id="B7Q-Tw-vR4"/>
+                        <outlet property="messageLabel" destination="bc8-jy-jZx" id="dkb-FI-4gH"/>
                         <outlet property="nextButton" destination="L6l-lK-Bye" id="XNY-5A-eYE"/>
                         <outlet property="vkLoginButton" destination="oOs-KI-w7L" id="q24-xi-J5q"/>
                     </connections>

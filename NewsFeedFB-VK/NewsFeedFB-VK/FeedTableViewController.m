@@ -14,8 +14,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl * refreshControl;
 @property (strong, nonatomic) NSMutableArray * itemsArray;
-@property (nonatomic, strong) VKAPI *vkapi;
-
 
 @end
 
@@ -35,17 +33,33 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 150.0;
     [self pulToRefreash];
-    
-    [VKAPI getDataWithCompletion:^(NSError *error) {
-        if (error) {
-            [self showAlertWithString:nil withError:error];
-        } else {
-            [self reloadItems];
-        }
-    }];
+    [self loadData];
+}
+
+- (void)loadData {
+    if ([VKAPI isInternetAvailable]){
+        [ApplicationDelegate cleanAndResetupDB];
+        
+        [ApplicationDelegate showMBProgressHUDWithTitle:nil
+                                               subTitle:nil
+                                                   view:self.view];
+        [VKAPI getDataWithCompletion:^(NSError *error) {
+            [ApplicationDelegate.mbprogressHUD hideAnimated:NO];
+            if (error) {
+                [self showAlertWithString:nil withError:error];
+            } else {
+                [self reloadItems];
+            }
+        }];
+    } else {
+        [self reloadItems];
+        
+    }
+
 }
 
 - (void)onBackButtonItemTap {
+    
 //    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -71,17 +85,7 @@
         
         [self.refreshControl endRefreshing];
     }
-//    [ApplicationDelegate cleanAndResetupDB];
-//    
-//    [self.vkapi getJsonVKWithCompletion:^(NSError *error) {
-//        if (error) {
-//            [self showAlertWithString:nil withError:error];
-//        } else {
-//            [self reloadItems];
-//        }
-//    }];
-    
-    
+    [self loadData];
 }
 
 

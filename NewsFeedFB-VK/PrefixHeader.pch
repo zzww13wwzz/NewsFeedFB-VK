@@ -29,6 +29,8 @@
 
 #define ApplicationDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
+#define NOTIFICATION_internet_connection_lost       @"NOTIFICATION_internet_connection_lost"
+
 #if !defined(NS_UNAVAILABLE)
 #define NS_UNAVAILABLE UNAVAILABLE_ATTRIBUTE
 #endif

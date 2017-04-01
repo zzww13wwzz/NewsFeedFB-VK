@@ -10,6 +10,7 @@
 		9A333934F66AD361A3A27E4C /* libPods-NewsFeedFB-VK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3E7A7F057655563FE19D7E /* libPods-NewsFeedFB-VK.a */; };
 		B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86686AC1E8E644100859C21 /* FeedTableViewController.m */; };
 		B86F1ED41E8FA3D600CD8E8B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */; };
+		B86F1ED81E901F6500CD8E8B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B86F1ED71E901F6500CD8E8B /* Reachability.m */; };
 		B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */; };
 		B87519F31E8D5C2900A1D178 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E81E8D5C2900A1D178 /* Group.m */; };
 		B87519F41E8D5C2900A1D178 /* Group+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519EA1E8D5C2900A1D178 /* Group+CoreDataProperties.m */; };
@@ -38,6 +39,8 @@
 		B86686AC1E8E644100859C21 /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
 		B86F1ED21E8FA3D600CD8E8B /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
 		B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
+		B86F1ED61E901F6500CD8E8B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability/Reachability.h; sourceTree = "<group>"; };
+		B86F1ED71E901F6500CD8E8B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability/Reachability.m; sourceTree = "<group>"; };
 		B87519DF1E8D184F00A1D178 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B87519E01E8D2ACB00A1D178 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
@@ -96,6 +99,15 @@
 				02099186FEA3B53C4F6E6F4D /* Pods-NewsFeedFB-VK.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B86F1ED51E901F4700CD8E8B /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				B86F1ED61E901F6500CD8E8B /* Reachability.h */,
+				B86F1ED71E901F6500CD8E8B /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		B87519E41E8D2B6700A1D178 /* Controllers */ = {
@@ -189,6 +201,7 @@
 		BD672AC8CED51C75597BF96F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B86F1ED51E901F4700CD8E8B /* Reachability */,
 				B8FE32111E8AE0F100DBB238 /* Bolts.framework */,
 				B8FE32121E8AE0F100DBB238 /* FBSDKCoreKit.framework */,
 				B8FE32131E8AE0F100DBB238 /* FBSDKLoginKit.framework */,
@@ -325,6 +338,7 @@
 				B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */,
 				B87519F71E8D5C2900A1D178 /* User.m in Sources */,
 				B86F1ED41E8FA3D600CD8E8B /* LaunchViewController.m in Sources */,
+				B86F1ED81E901F6500CD8E8B /* Reachability.m in Sources */,
 				B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */,
 				B8FE31F91E8AC74000DBB238 /* main.m in Sources */,
 				B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */,
