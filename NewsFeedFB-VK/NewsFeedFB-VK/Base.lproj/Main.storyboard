@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -33,7 +33,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signInAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d6a-Dg-ShG"/>
+                                    <action selector="signInAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PmO-SG-qkf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW6-yG-7Mu" customClass="FBSDKLoginButton">
@@ -61,25 +61,13 @@
                                     <action selector="vkontakteAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pjB-TQ-yKJ"/>
                                 </connections>
                             </button>
-                            <webView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P2-dm-5Xw">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="uRq-vg-bpQ"/>
-                                </connections>
-                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0P2-dm-5Xw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7Ix-TN-Mx2"/>
                             <constraint firstItem="L6l-lK-Bye" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9XU-DN-1B8"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0P2-dm-5Xw" secondAttribute="bottom" id="DcB-o4-Dw8"/>
                             <constraint firstItem="oOs-KI-w7L" firstAttribute="top" secondItem="cW6-yG-7Mu" secondAttribute="bottom" constant="25" id="K96-S9-em3"/>
-                            <constraint firstItem="0P2-dm-5Xw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="LBK-sN-bme"/>
                             <constraint firstItem="cW6-yG-7Mu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OdA-6H-KIN"/>
-                            <constraint firstAttribute="trailing" secondItem="0P2-dm-5Xw" secondAttribute="trailing" id="Ro3-Lb-EEZ"/>
                             <constraint firstItem="oOs-KI-w7L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="StI-pB-Fmh"/>
-                            <constraint firstItem="0P2-dm-5Xw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="chy-rb-YWe"/>
                             <constraint firstItem="oOs-KI-w7L" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qog-Mm-U0c"/>
                             <constraint firstItem="L6l-lK-Bye" firstAttribute="top" secondItem="oOs-KI-w7L" secondAttribute="bottom" constant="25" id="roM-0E-YSh"/>
                         </constraints>
@@ -89,24 +77,43 @@
                         <outlet property="fbLoginButton" destination="cW6-yG-7Mu" id="B7Q-Tw-vR4"/>
                         <outlet property="nextButton" destination="L6l-lK-Bye" id="XNY-5A-eYE"/>
                         <outlet property="vkLoginButton" destination="oOs-KI-w7L" id="q24-xi-J5q"/>
-                        <outlet property="webView" destination="0P2-dm-5Xw" id="kJq-mL-ZP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="139"/>
+            <point key="canvasLocation" x="-1129" y="62"/>
         </scene>
-        <!--Feed Table View Controller-->
+        <!--Launch View Controller-->
+        <scene sceneID="gzX-Zg-5hp">
+            <objects>
+                <viewController id="zRL-1O-8fG" customClass="LaunchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bFC-ys-QBu"/>
+                        <viewControllerLayoutGuide type="bottom" id="9pA-kn-jLO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Occ-Bg-eME">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jaG-UE-NFi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="och-iJ-Xbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1866" y="-1088"/>
+        </scene>
+        <!--Feed-->
         <scene sceneID="Vyd-Ao-hKp">
             <objects>
-                <tableViewController storyboardIdentifier="FeedVC" id="Lpd-wE-6hr" customClass="FeedTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FeedVC" title="Feed" id="Lpd-wE-6hr" customClass="FeedTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AaR-0T-Idc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
+                        <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="200" id="Mq2-qs-Uzf" customClass="FeedTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="200"/>
@@ -125,7 +132,7 @@
                                                         <constraint firstAttribute="width" constant="50" id="sDm-4g-XBZ"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8x7-D7-vfW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8x7-D7-vfW">
                                                     <rect key="frame" x="70" y="10" width="305" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="cy6-n5-JI3"/>
@@ -139,7 +146,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="5nI-FQ-zZJ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -241,7 +248,7 @@
                                         <constraint firstItem="emd-99-4LQ" firstAttribute="leading" secondItem="GaZ-pq-kWh" secondAttribute="leadingMargin" constant="5" id="sKV-Hf-9jk"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="bottomView" destination="DDo-7G-84H" id="3Sn-dv-rPm"/>
                                     <outlet property="infoLabel" destination="bJB-ZW-IX9" id="Mif-mK-PU5"/>
@@ -261,15 +268,14 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="JVp-fe-eSs"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <navigationItem key="navigationItem" title="Feed" id="tLV-ve-bWF"/>
                     <connections>
                         <outlet property="tableView" destination="AaR-0T-Idc" id="Ua8-z4-XHd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtp-0b-xNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="848.72563718140941"/>
+            <point key="canvasLocation" x="-266" y="62"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kY7-jU-uwO">
@@ -280,12 +286,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="sxI-lM-qOR"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pe2-Fy-fK0"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PpM-77-nXx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-826" y="139"/>
+            <point key="canvasLocation" x="-2022" y="62"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

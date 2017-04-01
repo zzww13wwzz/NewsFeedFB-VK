@@ -16,20 +16,42 @@
 @property (strong, nonatomic) NSMutableArray * itemsArray;
 @property (nonatomic, strong) VKAPI *vkapi;
 
+
 @end
 
 @implementation FeedTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[self navigationController] setNavigationBarHidden:false animated:YES];
+    self.navigationController.title = @"Feed";
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(onBackButtonItemTap)];
+    
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 150.0;
     [self pulToRefreash];
-    [self reloadItems];
+    
+    [VKAPI getDataWithCompletion:^(NSError *error) {
+        if (error) {
+            [self showAlertWithString:nil withError:error];
+        } else {
+            [self reloadItems];
+        }
+    }];
 }
+
+- (void)onBackButtonItemTap {
+//    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)pulToRefreash {
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor darkGrayColor];
+    self.refreshControl.backgroundColor = [UIColor grayColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self
                             action:@selector(loadFeed)
@@ -49,21 +71,22 @@
         
         [self.refreshControl endRefreshing];
     }
-    [ApplicationDelegate cleanAndResetupDB];
-    
-    [self.vkapi getJsonVKWithCompletion:^(NSError *error) {
-        if (error) {
-            [self showAlertWithString:nil withError:error];
-        } else {
-            [self reloadItems];
-        }
-    }];
+//    [ApplicationDelegate cleanAndResetupDB];
+//    
+//    [self.vkapi getJsonVKWithCompletion:^(NSError *error) {
+//        if (error) {
+//            [self showAlertWithString:nil withError:error];
+//        } else {
+//            [self reloadItems];
+//        }
+//    }];
     
     
 }
 
 
 - (void)reloadItems {
+    
     _itemsArray = [[[Item MR_findAll] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date"
                                                                                                   ascending:NO]]] mutableCopy];
     [self.tableView reloadData];

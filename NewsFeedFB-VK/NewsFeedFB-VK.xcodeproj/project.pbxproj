@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A333934F66AD361A3A27E4C /* libPods-NewsFeedFB-VK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3E7A7F057655563FE19D7E /* libPods-NewsFeedFB-VK.a */; };
 		B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86686AC1E8E644100859C21 /* FeedTableViewController.m */; };
+		B86F1ED41E8FA3D600CD8E8B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */; };
 		B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */; };
 		B87519F31E8D5C2900A1D178 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E81E8D5C2900A1D178 /* Group.m */; };
 		B87519F41E8D5C2900A1D178 /* Group+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519EA1E8D5C2900A1D178 /* Group+CoreDataProperties.m */; };
@@ -19,7 +20,7 @@
 		B87519FB1E8D64CB00A1D178 /* VKAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519FA1E8D64CB00A1D178 /* VKAPI.m */; };
 		B8FE31F91E8AC74000DBB238 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31F81E8AC74000DBB238 /* main.m */; };
 		B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */; };
-		B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FE1E8AC74000DBB238 /* ViewController.m */; };
+		B8FE31FF1E8AC74000DBB238 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE31FE1E8AC74000DBB238 /* LoginViewController.m */; };
 		B8FE32021E8AC74000DBB238 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8FE32001E8AC74000DBB238 /* Main.storyboard */; };
 		B8FE32051E8AC74000DBB238 /* NewsFeedFB_VK.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8FE32031E8AC74000DBB238 /* NewsFeedFB_VK.xcdatamodeld */; };
 		B8FE32071E8AC74000DBB238 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8FE32061E8AC74000DBB238 /* Assets.xcassets */; };
@@ -35,6 +36,8 @@
 		26C293DCE95EC804C4268FD7 /* Pods-NewsFeedFB-VK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsFeedFB-VK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsFeedFB-VK/Pods-NewsFeedFB-VK.debug.xcconfig"; sourceTree = "<group>"; };
 		B86686AB1E8E644100859C21 /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
 		B86686AC1E8E644100859C21 /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
+		B86F1ED21E8FA3D600CD8E8B /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		B87519DF1E8D184F00A1D178 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B87519E01E8D2ACB00A1D178 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
@@ -56,8 +59,8 @@
 		B8FE31F81E8AC74000DBB238 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B8FE31FA1E8AC74000DBB238 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B8FE31FB1E8AC74000DBB238 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B8FE31FD1E8AC74000DBB238 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B8FE31FE1E8AC74000DBB238 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B8FE31FD1E8AC74000DBB238 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B8FE31FE1E8AC74000DBB238 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B8FE32011E8AC74000DBB238 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B8FE32041E8AC74000DBB238 /* NewsFeedFB_VK.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NewsFeedFB_VK.xcdatamodel; sourceTree = "<group>"; };
 		B8FE32061E8AC74000DBB238 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,10 +101,12 @@
 		B87519E41E8D2B6700A1D178 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B8FE31FD1E8AC74000DBB238 /* ViewController.h */,
-				B8FE31FE1E8AC74000DBB238 /* ViewController.m */,
+				B8FE31FD1E8AC74000DBB238 /* LoginViewController.h */,
+				B8FE31FE1E8AC74000DBB238 /* LoginViewController.m */,
 				B86686AB1E8E644100859C21 /* FeedTableViewController.h */,
 				B86686AC1E8E644100859C21 /* FeedTableViewController.m */,
+				B86F1ED21E8FA3D600CD8E8B /* LaunchViewController.h */,
+				B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -316,9 +321,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8FE31FF1E8AC74000DBB238 /* ViewController.m in Sources */,
+				B8FE31FF1E8AC74000DBB238 /* LoginViewController.m in Sources */,
 				B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */,
 				B87519F71E8D5C2900A1D178 /* User.m in Sources */,
+				B86F1ED41E8FA3D600CD8E8B /* LaunchViewController.m in Sources */,
 				B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */,
 				B8FE31F91E8AC74000DBB238 /* main.m in Sources */,
 				B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */,

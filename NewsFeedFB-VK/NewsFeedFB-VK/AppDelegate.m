@@ -23,9 +23,7 @@
 
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
-    
-    [VKSdk initializeWithAppId:@"5953151"];
-    
+
     [self setupDB];
     
     return YES;

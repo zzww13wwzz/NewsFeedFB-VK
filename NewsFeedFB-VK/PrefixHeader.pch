@@ -17,6 +17,7 @@
 #import "Item.h"
 #import "User.h"
 
+#import "VKAPI.h"
 #import "AppDelegate.h"
 #import "CoreData+MagicalRecord.h"
 
@@ -28,7 +29,8 @@
 
 #define ApplicationDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#if !defined(NS_UNAVAILABLE)
+#define NS_UNAVAILABLE UNAVAILABLE_ATTRIBUTE
+#endif
 
 #endif /* PrefixHeader_pch */
