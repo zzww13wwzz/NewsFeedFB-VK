@@ -7,5 +7,6 @@ pod 'MBProgressHUD', :git => 'https://github.com/jdg/MBProgressHUD.git', :tag =>
 pod 'SDWebImage'
 pod 'VK-ios-sdk'
 pod 'AFNetworking'
+pod 'FRHyperLabel'
 
 end

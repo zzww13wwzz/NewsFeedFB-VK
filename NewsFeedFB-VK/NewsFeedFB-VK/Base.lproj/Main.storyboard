@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="height" constant="30" id="L5G-Gc-3SO"/>
                                     <constraint firstAttribute="width" constant="150" id="PHn-7s-AGt"/>
                                 </constraints>
-                                <state key="normal" title="NextButton">
+                                <state key="normal" title="Go">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -180,8 +180,9 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emd-99-4LQ" userLabel="central">
                                             <rect key="frame" x="13" y="65" width="354" height="85"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJB-ZW-IX9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJB-ZW-IX9" customClass="FRHyperLabel">
                                                     <rect key="frame" x="18" y="10" width="318" height="65"/>
+                                                    <color key="backgroundColor" red="1" green="0.89235150549999998" blue="0.55533841880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -198,13 +199,6 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDo-7G-84H" userLabel="bottom">
                                             <rect key="frame" x="0.0" y="150" width="375" height="45"/>
                                             <subviews>
-                                                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5H-Tr-jUm">
-                                                    <rect key="frame" x="0.0" y="41" width="375" height="4"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="4" id="B2P-fn-LR3"/>
-                                                    </constraints>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyz-cF-trw">
                                                     <rect key="frame" x="25" y="0.0" width="350" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -230,11 +224,8 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="T5H-Tr-jUm" secondAttribute="trailing" id="6HG-aV-jF0"/>
                                                 <constraint firstItem="hyz-cF-trw" firstAttribute="top" secondItem="DDo-7G-84H" secondAttribute="top" id="AjI-li-Jqd"/>
-                                                <constraint firstItem="T5H-Tr-jUm" firstAttribute="leading" secondItem="DDo-7G-84H" secondAttribute="leading" id="CBv-lY-RLp"/>
                                                 <constraint firstItem="Q8M-ne-uxX" firstAttribute="leading" secondItem="md7-IE-qEv" secondAttribute="trailing" id="Dgc-mr-Fqg"/>
-                                                <constraint firstAttribute="bottom" secondItem="T5H-Tr-jUm" secondAttribute="bottom" id="EhZ-rC-YJo"/>
                                                 <constraint firstAttribute="trailing" secondItem="Q8M-ne-uxX" secondAttribute="trailing" constant="15" id="O3l-g5-xli"/>
                                                 <constraint firstItem="hyz-cF-trw" firstAttribute="leading" secondItem="DDo-7G-84H" secondAttribute="leading" constant="25" id="Tkq-j6-wMq"/>
                                                 <constraint firstItem="Q8M-ne-uxX" firstAttribute="top" secondItem="DDo-7G-84H" secondAttribute="top" id="XKU-8E-qa3"/>
@@ -246,19 +237,29 @@
                                                 <constraint firstAttribute="trailing" secondItem="hyz-cF-trw" secondAttribute="trailing" id="uq7-mm-WFZ"/>
                                             </constraints>
                                         </view>
+                                        <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5H-Tr-jUm">
+                                            <rect key="frame" x="0.0" y="196" width="375" height="4"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="4" id="1mc-71-NUl"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="rj4-qa-3Tb" firstAttribute="leading" secondItem="GaZ-pq-kWh" secondAttribute="leading" id="0RP-AX-7bA"/>
+                                        <constraint firstItem="T5H-Tr-jUm" firstAttribute="leading" secondItem="GaZ-pq-kWh" secondAttribute="leading" id="3T9-xE-ry9"/>
                                         <constraint firstItem="rj4-qa-3Tb" firstAttribute="top" secondItem="GaZ-pq-kWh" secondAttribute="top" id="BGL-9l-q6y"/>
                                         <constraint firstItem="emd-99-4LQ" firstAttribute="top" secondItem="rj4-qa-3Tb" secondAttribute="bottom" id="FWK-5r-Mcr"/>
                                         <constraint firstAttribute="bottom" secondItem="DDo-7G-84H" secondAttribute="bottom" constant="5" id="WkN-Qc-SsT"/>
                                         <constraint firstItem="DDo-7G-84H" firstAttribute="top" secondItem="emd-99-4LQ" secondAttribute="bottom" id="Y5E-Si-a1D"/>
+                                        <constraint firstAttribute="trailing" secondItem="T5H-Tr-jUm" secondAttribute="trailing" id="bQa-1r-vqt"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="emd-99-4LQ" secondAttribute="trailing" id="bYi-xo-RUk"/>
                                         <constraint firstAttribute="trailing" secondItem="rj4-qa-3Tb" secondAttribute="trailing" id="el3-6i-fLO"/>
                                         <constraint firstAttribute="trailing" secondItem="DDo-7G-84H" secondAttribute="trailing" id="pQ9-oI-FNl"/>
                                         <constraint firstItem="DDo-7G-84H" firstAttribute="leading" secondItem="GaZ-pq-kWh" secondAttribute="leading" id="qqa-Ex-jog"/>
                                         <constraint firstItem="emd-99-4LQ" firstAttribute="leading" secondItem="GaZ-pq-kWh" secondAttribute="leadingMargin" constant="5" id="sKV-Hf-9jk"/>
+                                        <constraint firstAttribute="bottom" secondItem="T5H-Tr-jUm" secondAttribute="bottom" id="yYm-ZW-ONP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -25,7 +25,7 @@
     self.navigationController.title = @"Feed";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(onBackButtonItemTap)];
@@ -59,8 +59,7 @@
 }
 
 - (void)onBackButtonItemTap {
-    
-//    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)pulToRefreash {

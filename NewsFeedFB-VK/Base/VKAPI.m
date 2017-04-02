@@ -163,25 +163,25 @@
             }
             if ([item[@"type"] isEqualToString:@"note"]) {
                 /*
-                NSArray * photos = item[@"photos"];
-                if (photos.count > 0) {
-                    for (NSArray * obj in item[@"photos"][@"items"]) {
-                        [mediaURLs addObject:obj];
-                    }
-                }
-                
-                [Item itemWithPostID:[item[@"post_id"] stringValue]
-                                date:[self dateFormatted:item[@"date"]]
-                                text:@""
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
-                               owner:[item[@"source_id"] stringValue]];
+                 NSArray * photos = item[@"photos"];
+                 if (photos.count > 0) {
+                 for (NSArray * obj in item[@"photos"][@"items"]) {
+                 [mediaURLs addObject:obj];
+                 }
+                 }
+                 
+                 [Item itemWithPostID:[item[@"post_id"] stringValue]
+                 date:[self dateFormatted:item[@"date"]]
+                 text:@""
+                 type:item[@"type"]
+                 mediaURLs:mediaURLs
+                 likes:@""
+                 reposted:@""
+                 owner:[item[@"source_id"] stringValue]];
                  */
             }
             if ([item[@"type"] isEqualToString:@"audio"]) {
-
+                
                 NSArray * audio = item[@"audio"];
                 if (audio.count > 0) {
                     for (NSArray * obj in item[@"audio"][@"items"]) {
@@ -200,23 +200,23 @@
                 
             }
             if ([item[@"type"] isEqualToString:@"video"]) {
-                /*
-                 NSArray * photos = item[@"audios"];
-                 if (photos.count > 0) {
-                 for (NSArray * obj in item[@"photos"][@"items"]) {
-                 [mediaURLs addObject:obj];
-                 }
-                 }
-                 
-                 [Item itemWithPostID:[item[@"post_id"] stringValue]
-                 date:[self dateFormatted:item[@"date"]]
-                 text:@""
-                 type:item[@"type"]
-                 mediaURLs:mediaURLs
-                 likes:@""
-                 reposted:@""
-                 owner:[item[@"source_id"] stringValue]];
-                 */
+                
+                NSArray * video = item[@"video"];
+                if (video.count > 0) {
+                    for (NSArray * obj in item[@"video"][@"items"]) {
+                        [mediaURLs addObject:obj];
+                    }
+                }
+                
+                [Item itemWithPostID:@""
+                                date:[self dateFormatted:item[@"date"]]
+                                text:@""
+                                type:item[@"type"]
+                           mediaURLs:mediaURLs
+                               likes:@""
+                            reposted:@""
+                               owner:[item[@"source_id"] stringValue]];
+                
             }
         }
     }
