@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - FLAnimatedImage (1.0.12)
   - FRHyperLabel (1.0.3)
   - MagicalRecord/Shorthand (2.2)
   - MBProgressHUD (1.0.0)
@@ -24,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - FLAnimatedImage (~> 1.0)
   - FRHyperLabel
   - MagicalRecord/Shorthand
   - MBProgressHUD (from `https://github.com/jdg/MBProgressHUD.git`, tag `1.0.0`)
@@ -42,12 +44,13 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FRHyperLabel: 99d08d3667880b4c430071c9afbcb93aaaa34b37
   MagicalRecord: 2dc87179ae7c1f2a274442624ec65a07d4357a6f
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: 4c47f4d4d60320e624c04cc15af833c6687f3632
+PODFILE CHECKSUM: 86919d4c97fb18000c74d404dc3356dc77b6f42c
 
 COCOAPODS: 1.2.0

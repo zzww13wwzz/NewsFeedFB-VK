@@ -11,6 +11,7 @@
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "FRHyperLabel.h"
+#import "FLAnimatedImage.h"
 
 
 @interface DetailViewController ()
@@ -60,10 +61,24 @@
                     NSArray *data = [link valueForKey:@"photo"];
                     url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
                 }
+                if ([[link valueForKey:@"type"] isEqualToString:@"doc"]) {
+                    NSArray * fields = [link valueForKey:@"doc"];
+                    NSString * gifLink = [fields valueForKey:@"url"];
+                    
+                    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:gifLink]]];
+                    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+                    imageView.animatedImage = image;
+                    CGRect frame = CGRectMake(0,
+                                              0,
+                                              self.view.frame.size.width - self.contentView.frame.origin.x*2,
+                                              self.contentView.frame.size.height);
+                    
+                    imageView.frame = frame;
+                    [self.contentView addSubview:imageView];
+                }
+
             }
-            if ([_item.type isEqualToString:@"photo"]) {
             
-            }
             CGRect frame = CGRectMake(0,
                                       (_contentView.frame.size.height) * i,
                                       self.view.frame.size.width - _contentView.frame.origin.x*2,
@@ -73,8 +88,8 @@
             view.contentMode = UIViewContentModeScaleAspectFit;
             view.backgroundColor = [UIColor redColor];
             
-
-
+            
+            
             [view sd_setImageWithURL:url];
             
             [self.contentView addSubview:view];
@@ -89,7 +104,7 @@
                                               cpn);
     
     self.scrollView.scrollEnabled = (self.scrollView.contentSize.height < cpn);
-
+    
 }
 
 

@@ -8,6 +8,6 @@ pod 'SDWebImage'
 pod 'VK-ios-sdk'
 pod 'AFNetworking'
 pod 'FRHyperLabel'
-
+pod 'FLAnimatedImage', '~> 1.0'
 
 end

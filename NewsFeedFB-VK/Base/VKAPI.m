@@ -39,13 +39,18 @@
 }
 
 + (void)getUserWithNameID:(NSString *)nameID
-                completion:(void (^)(NSString * name))completion {
+               completion:(void (^)(NSString * name))completion {
     VKRequest * getName = [VKRequest requestWithMethod:@"users.get" parameters:@{VK_API_USER_ID : nameID}];
     [getName executeWithResultBlock:^(VKResponse * response) {
         NSLog(@"Json result: %@", response.json);
         if (response.json) {
-            NSArray * userInfo = response.json;
-            NSString * name = [NSString stringWithFormat:@"%@ %@", [userInfo valueForKey:@"first_name"], [userInfo valueForKey:@"last_name"]];
+            
+            NSString * name = @"";
+            for (NSArray * info in response.json) {
+                NSString *firstname = [info valueForKey:@"first_name"];
+                NSString *lastName = [info valueForKey:@"last_name"];
+                name = [NSString stringWithFormat:@"%@ %@ %@;",name, firstname, lastName];
+            }
             PERFORM_BLOCK(completion, name);
         }
     } errorBlock:^(NSError * error) {
@@ -60,13 +65,13 @@
 }
 
 + (void)getVideoWithAccess:(NSString *)accessKey
-               completion:(void (^)(NSArray * json))completion {
+                completion:(void (^)(NSArray * json))completion {
     VKRequest * getName = [VKRequest requestWithMethod:@"video.get" parameters:@{VK_API_ACCESS_KEY : accessKey}];
     [getName executeWithResultBlock:^(VKResponse * response) {
         NSLog(@"Json result: %@", response.json);
         if (response.json) {
-//            NSArray * userInfo = response.json;
-//            NSString * name = [NSString stringWithFormat:@"%@ %@", [userInfo valueForKey:@"first_name"], [userInfo valueForKey:@"last_name"]];
+            //            NSArray * userInfo = response.json;
+            //            NSString * name = [NSString stringWithFormat:@"%@ %@", [userInfo valueForKey:@"first_name"], [userInfo valueForKey:@"last_name"]];
             PERFORM_BLOCK(completion, response.json);
         }
     } errorBlock:^(NSError * error) {
@@ -120,9 +125,12 @@
                             [[obj valueForKey:@"type"] isEqualToString:@"link"]) {
                             
                         }
-
+                        
                         [mediaURLs addObject:obj];
                     }
+                }
+                if (mediaURLs.count == 0) {
+                    NSLog(@"AHTUNG!!!post");
                 }
                 
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
@@ -145,6 +153,9 @@
                     }
                 }
                 
+                if (mediaURLs.count == 0) {
+                    NSLog(@"AHTUNG!!!photo");
+                }
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
                                 text:text
@@ -162,6 +173,9 @@
                         [mediaURLs addObject:obj];
                         text = [obj valueForKey:@"text"];
                     }
+                }
+                if (mediaURLs.count == 0) {
+                    NSLog(@"AHTUNG!!!photo_tag");
                 }
                 
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
@@ -182,6 +196,9 @@
                         text = [obj valueForKey:@"text"];
                     }
                 }
+                if (mediaURLs.count == 0) {
+                    NSLog(@"AHTUNG!!!wall_photo");
+                }
                 
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
@@ -201,6 +218,10 @@
                     }
                 }
                 
+                if (mediaURLs.count == 0) {
+                    NSLog(@"AHTUNG!!!friend");
+                }
+
                 [Item itemWithPostID:@""
                                 date:[self dateFormatted:item[@"date"]]
                                 text:@"Added:"
@@ -255,6 +276,10 @@
                     for (NSArray * obj in item[@"video"][@"items"]) {
                         [mediaURLs addObject:obj];
                     }
+                }
+                
+                if (mediaURLs.count == 0) {
+                    NSLog(@"AHTUNG!!!video");
                 }
                 
                 [Item itemWithPostID:@""

@@ -26,14 +26,14 @@
     [[self navigationController] setNavigationBarHidden:false animated:YES];
     self.navigationController.title = @"Feed";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(onBackButtonItemTap)];
     
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 150.0;
+    //    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //    self.tableView.estimatedRowHeight = 150.0;
     [self pulToRefreash];
     [self loadData];
 }
@@ -57,7 +57,7 @@
         [self reloadItems];
         
     }
-
+    
 }
 
 - (void)onBackButtonItemTap {
@@ -109,8 +109,43 @@
     return _itemsArray.count;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Item *item = _itemsArray[indexPath.row];
+    CGFloat height = 136;
+    if (item.text.length > 0){
+        height = height + 64;
+    }
+    
+    if (item.mediaURLs.count == 0) {
+        return height;
+    } else {
+        NSLog(@"_item.type = %@", item.type);
+        if ([item.type isEqualToString:@"photo"] ||
+            [item.type isEqualToString:@"wall_photo"] ||
+            [item.type isEqualToString:@"photo_tag"]) {
+            height = height + 200;
+            return height;
+        }
+        if ([item.type isEqualToString:@"post"]) {
+            NSArray * link = [item.mediaURLs objectAtIndex:0];
+            if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
+                height = height + 200;
+                return height;
+            }
+        }
+        return height;
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FeedTableViewCell *cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
+    
+    if(!cell){
+        cell = [[FeedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"FeedCell"];
+    }
+    
     cell.item = _itemsArray[indexPath.row];
     [cell updateConstraintsIfNeeded];
     return cell;
