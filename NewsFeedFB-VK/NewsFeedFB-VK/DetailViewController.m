@@ -15,12 +15,6 @@
 
 
 @interface DetailViewController ()
-//<UIGestureRecognizerDelegate>
-//{
-//    UITapGestureRecognizer *tap;
-//    BOOL isFullScreen;
-//    CGRect prevFrame;
-//}
 
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 
@@ -45,8 +39,6 @@
     [self fillLikeAndRepostInfo];
     [self fillTextInfoOfPost];
     [self fillContent];
-    
-    
 }
 
 
@@ -83,11 +75,7 @@
                 UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
                 view.contentMode = UIViewContentModeScaleAspectFit;
                 view.userInteractionEnabled = YES;
-                
-//                isFullScreen = false;
-//                tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen:)];
-//                tap.delegate = self;
-//                [view addGestureRecognizer:tap];
+
                 [view sd_setImageWithURL:url];
                 
                 [self.contentView addSubview:view];
@@ -131,42 +119,6 @@
     
     self.scrollView.scrollEnabled = (self.scrollView.contentSize.height < cpn);
 }
-
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
-//{
-//    BOOL shouldReceiveTouch = YES;
-//    
-//    if (gestureRecognizer == tap) {
-//        for (UIImageView * imageView in self.contentView.subviews) {
-//            if (touch.view == imageView) {
-//                shouldReceiveTouch = (touch.view == imageView);
-//                [self.contentView bringSubviewToFront:imageView];
-//            }
-//        }
-//    }
-//    return shouldReceiveTouch;
-//}
-//-(void)imgToFullScreen:(UIGestureRecognizer *)sender {
-//    
-//    if (!isFullScreen) {
-//        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-//            //save previous frame
-//            prevFrame = sender.view.frame;
-//            [sender.view setFrame:[[UIScreen mainScreen] bounds]];
-//        }completion:^(BOOL finished){
-//            isFullScreen = true;
-//        }];
-//        return;
-//    } else {
-//        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-//            [sender.view setFrame:prevFrame];
-//        }completion:^(BOOL finished){
-//            isFullScreen = false;
-//        }];
-//        return;
-//    }
-//}
-
 
 # pragma mark - fillTextInfoOfPost
 
