@@ -9,12 +9,9 @@
 #import "FeedTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FRHyperLabel.h"
+#import <VKSdk.h>
 
-@interface  FeedTableViewCell ()<UIGestureRecognizerDelegate> {
-    UITapGestureRecognizer *tap;
-    BOOL isFullScreen;
-    CGRect prevFrame;
-}
+@interface  FeedTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
@@ -27,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *repostLabel;
+@property (weak, nonatomic) IBOutlet UILabel *moreLabel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaContentViewConstraint;
 
 @end
 
@@ -34,9 +34,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    //    isFullScreen = false;
-    //    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen)];
-    //    tap.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,73 +41,191 @@
     
 }
 
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
-//{
-//    BOOL shouldReceiveTouch = YES;
-//
-//    if (gestureRecognizer == tap) {
-//        shouldReceiveTouch = (touch.view == yourImageView);
-//    }
-//    return shouldReceiveTouch;
-//}
-//
-//
-//-(void)imgToFullScreen{
-//    if (!isFullScreen) {
-//        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-//            //save previous frame
-//            prevFrame = yourImageView.frame;
-//            [yourImageView setFrame:[[UIScreen mainScreen] bounds]];
-//        }completion:^(BOOL finished){
-//            isFullScreen = true;
-//        }];
-//        return;
-//    } else {
-//        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
-//            [yourImageView setFrame:prevFrame];
-//        }completion:^(BOOL finished){
-//            isFullScreen = false;
-//        }];
-//        return;
-//    }
-//}
-
-- (void) setItem:(Item *)item
-{
+- (void) setItem:(Item *)item {
     _item = item;
     
     [self fillOwnerInfo];
     [self fillLikeAndRepostInfo];
     [self fillTextInfoOfPost];
     
-    if ((_item.mediaURLs.count == 0) && (!ValidString(_item.text))) {
-        _infoView.hidden = YES;
-    }
     
+    
+    //    if (_item.mediaURLs.count == 0) {
+    //        _infoView.hidden = YES;
+    //        self.mediaContentViewConstraint.constant = 0;
+    //    }
+    //
     //    if (_item.mediaURLs.count > 0) {
-    //        CGFloat viewHeight = _infoLabel.frame.size.height;
-    //        for (NSArray * link in _item.mediaURLs) {
-    //            CGRect infoFrame = _infoLabel.frame;
-    //            CGFloat height = [[link valueForKey:@"height"] floatValue];
     //
-    //            CGRect frame = CGRectMake(infoFrame.origin.x,
-    //                                      infoFrame.size.height + infoFrame.size.height * [_item.mediaURLs indexOfObject:link] +10,
-    //                                      infoFrame.size.width,
-    //                                      height);
     //
-    //            UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
-    //            view.contentMode = UIViewContentModeScaleAspectFit;
-    //            [view sd_setImageWithURL:[NSURL URLWithString:[link valueForKey:@"photo_604"]]];
-    //            viewHeight = viewHeight + height;
-    //            [_infoView addSubview:view];
+    //        NSUInteger itemsCount = _item.mediaURLs.count;
+    //        NSLog(@"_item.mediaURLs ===== %lu", itemsCount);
+    ////        NSLog(@"_item.mediaURLs = %@", _item.mediaURLs);
+    
+    //[self createImageViewWithCount:itemsCount];
+    
+    
+    //        if ([_item.type isEqualToString:@"post"]) {
+    //            for (int i = 0; i < _item.mediaURLs.count; i++) {
+    //                NSArray * link = [self.item.mediaURLs objectAtIndex:i];
+    //                if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
+    //                    NSArray *data = [link valueForKey:@"photo"];
+    //                    [[_infoView.subviews objectAtIndex:i] sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
+    //                }
+    //                if ([[link valueForKey:@"type"] isEqualToString:@"link"]) {
+    //                    //                    NSArray *data = [link valueForKey:@"link"];
+    //                }
+    //
+    //            }
     //        }
-    //        _infoView.frame = CGRectMake(_infoView.frame.origin.x,
-    //                                     _infoView.frame.origin.y,
-    //                                     _infoView.frame.size.width,
-    //                                     viewHeight);
+    //        for (NSArray * link in _item.mediaURLs) {
+    //                if ([[link valueForKey:@"type"] isEqualToString:@"video"]) {
+    //                    //                    NSArray *data = [link valueForKey:@"video"];
+    //                }
+    //                if ([[link valueForKey:@"type"] isEqualToString:@"link"]) {
+    //                    //                    NSArray *data = [link valueForKey:@"link"];
+    //                }
+    
+    //            if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
+    //                NSArray *data = [link valueForKey:@"photo"];
+    //                NSUInteger index = [self.item.mediaURLs indexOfObject:link];
+    //                [[_infoView.subviews objectAtIndex:index] sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
+    //                //                    [view sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
     //
+    //
+    //
+    //            }
+    
+    
+    //                    NSArray *data = [link valueForKey:@"photo"];
+    
+    //NSString * text = [data valueForKey:@"text"];
+    //    [self imageViewCreator:[link valueForKey:@"photo"] withSize:@"604"];
+    //                    NSUInteger index = [self.item.mediaURLs indexOfObject:link];
+    //                    if(NSNotFound == index) {
+    //                    [self imageViewCreator:[link valueForKey:@"photo"] withSize:@"604" withCount:_item.mediaURLs.count];
+    //                    } else {
+    //                        [self imageViewCreator:[link valueForKey:@"photo"] withSize:@"604" withIndex:index];
+    
+    //        }
+    
+    
+    
     //    }
 }
+
+
+# pragma mark - fillTextInfoOfPost
+
+- (void)fillTextInfoOfPost {
+    //    if (!ValidString(_item.text)) {
+    //        _infoLabel.hidden = YES;
+    //    } else {
+    
+    _infoLabel.text = _item.text;
+    // if (_infoLabel.text.le)
+//    CGFloat oldHeight = _infoLabel.frame.size.height;
+//    _infoLabel.frame  = CGRectMake(_infoLabel.frame.origin.x,
+//                                   _infoLabel.frame.origin.y,
+//                                   _infoLabel.frame.size.width,
+//                                   [self optimizationInfoTexteHeight]);
+//    if (oldHeight < _infoLabel.frame.size.height) {
+//        
+//    }
+    
+    //        if ([self optimizationInfoTexteHeight] > _infoLabel.frame.size.height) {
+    //            _moreLabel.hidden = NO;
+    //            _infoView.hidden = YES;
+    //            self.mediaContentViewConstraint.constant = 0;
+    //        } else {
+    //            _moreLabel.hidden = YES;
+    //        }
+    
+    //        NSString * match = [self parserMessageForLink];
+    //
+    //        if (ValidString(match)) {
+    //            NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]};
+    //
+    //            _infoLabel.attributedText = [[NSAttributedString alloc]initWithString:_item.text attributes:attributes];
+    //
+    //            [_infoLabel setLinkForSubstring:match withLinkHandler:^(FRHyperLabel *label, NSString *substring){
+    //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:match]];
+    //            }];
+    //        } else {
+    //            _infoLabel.text = _item.text;
+    //        }
+    //    }
+    
+    if (_item.mediaURLs.count > 1) {
+        _moreLabel.hidden = NO;
+    }
+
+    if (_item.mediaURLs.count > 0) {
+        _infoView.hidden = NO;
+        if ([_item.type isEqualToString:@"post"]) {
+            NSArray * link = [self.item.mediaURLs objectAtIndex:0];
+            if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
+                NSArray *data = [link valueForKey:@"photo"];
+                if ( _infoView.subviews.count >0) {
+                    for (UIImageView *view in [_infoView subviews]){
+                        [view removeFromSuperview];
+                    }
+                }
+                CGRect frame = CGRectMake(0,
+                                          0,
+                                          _infoView.frame.size.width - _infoView.frame.origin.x*2,
+                                          _infoView.frame.size.height);
+                
+                
+                UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
+                view.contentMode = UIViewContentModeScaleAspectFit;
+                
+                [view sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
+                
+                [_infoView addSubview:view];
+                
+            }
+        }
+    } else {
+        _infoView.hidden = YES;
+        self.mediaContentViewConstraint.constant = 0;
+    }
+}
+
+- (NSString *)parserMessageForLink {
+    NSString *match = nil;
+    NSString * source = _item.text;
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:@"(?i)\\b((?:[a-z][\\w-]+:(?:/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:'\".,<>?«»“”‘’]))"
+                                                                                options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    if (!(([expression rangeOfFirstMatchInString:source options:NSMatchingReportCompletion range:NSMakeRange(0, [source length])]).location == NSNotFound)) {
+        match = [source substringWithRange:[expression rangeOfFirstMatchInString:source options:NSMatchingReportCompletion range:NSMakeRange(0, [source length])]];
+    }
+    
+    return match;
+}
+
+- (CGFloat)optimizationInfoTexteHeight {
+    CGSize constraint = CGSizeMake(_infoLabel.frame.size.width, CGFLOAT_MAX);
+    CGSize size;
+    
+    NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
+    CGSize boundingBox = [_infoLabel.text boundingRectWithSize:constraint
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:_infoLabel.font}
+                                                       context:context].size;
+    
+    size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height));
+    
+    return size.height;
+}
+
+void(^handler)(FRHyperLabel *label, NSString *substring) = ^(FRHyperLabel *label, NSString *substring){
+    NSLog(@"Selected: %@", substring);
+};
+
+
+# pragma mark - fillOwnerInfo
 
 - (void)fillOwnerInfo {
     NSString *imageLink = nil;
@@ -145,6 +260,8 @@
     }
 }
 
+# pragma mark - fillLikeAndRepostInfo
+
 - (void)fillLikeAndRepostInfo {
     if ((![_item.likes isEqualToString:@""]) && (![_item.reposted isEqualToString:@""])){
         _likeLabel.text = [NSString stringWithFormat:@"%@ likes", _item.likes];
@@ -158,61 +275,143 @@
     }
 }
 
-- (CGFloat)optimizationInfoTexteHeight {
-    CGSize constraint = CGSizeMake(_infoLabel.frame.size.width, CGFLOAT_MAX);
-    CGSize size;
-    
-    NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
-    CGSize boundingBox = [_infoLabel.text boundingRectWithSize:constraint
-                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                    attributes:@{NSFontAttributeName:_infoLabel.font}
-                                                       context:context].size;
-    
-    size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height));
-    
-    return size.height;
-}
 
-- (void)fillTextInfoOfPost {
-    if (!ValidString(_item.text)) {
-        _infoLabel.hidden = YES;
-    } else {
-        _infoLabel.frame  = CGRectMake(_infoLabel.frame.origin.x,
-                                       _infoLabel.frame.origin.y,
-                                       _infoLabel.frame.size.width,
-                                       [self optimizationInfoTexteHeight]);
-        
-        NSString * match = [self parserMessageForLink];
-        
-        if (ValidString(match)) {
-            NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]};
-            
-            _infoLabel.attributedText = [[NSAttributedString alloc]initWithString:_item.text attributes:attributes];
-            
-            [_infoLabel setLinkForSubstring:match withLinkHandler:^(FRHyperLabel *label, NSString *substring){
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:match]];
-            }];
-        } else {
-            _infoLabel.text = _item.text;
-        }
-    }
-}
 
-- (NSString *)parserMessageForLink {
-    NSString *match = nil;
-    NSString * source = _item.text;
-    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:@"(?i)\\b((?:[a-z][\\w-]+:(?:/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:'\".,<>?«»“”‘’]))"
-                                                                                options:NSRegularExpressionCaseInsensitive error:NULL];
-    
-    if (!(([expression rangeOfFirstMatchInString:source options:NSMatchingReportCompletion range:NSMakeRange(0, [source length])]).location == NSNotFound)) {
-        match = [source substringWithRange:[expression rangeOfFirstMatchInString:source options:NSMatchingReportCompletion range:NSMakeRange(0, [source length])]];
-    }
-    
-    return match;
-}
+//- (void)imageViewCreator:(NSArray*)link
+//                withSize:(NSString *)size
+//               withCount:(NSUInteger)count
+//{
+//
+//    CGRect infoFrame = _infoView.frame;
+//    CGFloat height = [[link valueForKey:@"height"] floatValue];
+//    //CGFloat width = [[link valueForKey:@"width"] floatValue];
+//    if (height > infoFrame.size.width) {
+//        height = infoFrame.size.width;
+//    }
+//
+//    //    CGRect lastObjFrame =  [_infoView.subviews lastObject].frame;
+//    if (count == 1) {
+//        CGRect frame = CGRectMake(infoFrame.origin.x,
+//                                  height *_infoView.subviews.count,
+//                                  infoFrame.size.width - infoFrame.origin.x*2,
+//                                  height);
+//    } else if (count >1 && count<5) {
+//
+//    }
+//
+//    CGRect frame = CGRectMake(infoFrame.origin.x,
+//                              height *_infoView.subviews.count,
+//                              infoFrame.size.width - infoFrame.origin.x*2,
+//                              height);
+//
+//
+//    UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
+//    view.contentMode = UIViewContentModeScaleAspectFit;
+//    view.backgroundColor = [UIColor redColor];
+//    //    [view sd_setImageWithURL:[NSURL URLWithString:[link valueForKey:[NSString stringWithFormat:@"photo_%@", size]]]];
+//
+//    [_infoView addSubview:view];
+//}
+/*
+ - (void)createImageViewWithCount:(NSUInteger) count {
+ CGRect frame = _infoView.frame;
+ int divisorX = 1;
+ int divisorY = 1;
+ 
+ if (count == 2) {
+ divisorX = 2;
+ } else if ((count > 2) && (count < 5)) {
+ divisorX = 2;
+ divisorY = 2;
+ } else if ((count > 4) && (count < 7)) {
+ divisorX = 3;
+ divisorY = 2;
+ } else if ((count > 6) && (count < 9)) {
+ divisorX = 4;
+ divisorY = 2;
+ } else {
+ divisorX = 5;
+ divisorY = 2;
+ }
+ 
+ 
+ for (int i = 0; i < count; i++) {
+ CGFloat width = _infoView.frame.size.width / divisorX;
+ CGFloat height = _infoView.frame.size.height / divisorY;
+ 
+ 
+ frame = CGRectMake(0 + i * width,
+ i * height,
+ width,
+ height);
+ 
+ UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
+ view.contentMode = UIViewContentModeScaleAspectFit;
+ [_infoView addSubview:view];
+ }
+ 
+ 
+ //    for (int i = 1; i < count+1; i++) {
+ //        frame = CGRectMake(0,
+ //                           (_infoView.frame.size.height) * count,
+ //                           self.frame.size.width - _infoView.frame.origin.x*2,
+ //                           _infoView.frame.size.height);
+ //    }
+ //    frame = CGRectMake(0,
+ //                       (_infoView.frame.size.height) * count,
+ //                       self.frame.size.width - _infoView.frame.origin.x*2,
+ //                       _infoView.frame.size.height);
+ //
+ //    frame = CGRectMake(0,
+ //                       (_infoView.frame.size.height) * count,
+ //                       self.frame.size.width - _infoView.frame.origin.x*2,
+ //                       _infoView.frame.size.height);
+ 
+ 
+ }*/
 
-void(^handler)(FRHyperLabel *label, NSString *substring) = ^(FRHyperLabel *label, NSString *substring){
-    NSLog(@"Selected: %@", substring);
-};
+
+
+//            if ([_item.type isEqualToString:@"photo"]) {
+//                heightContent = [self imageViewCreator:[link valueForKey:@"photo"] withSize:@"604"];
+//            }
+//            if ([_item.type isEqualToString:@"photo_tag"]) {
+//                heightContent = [self imageViewCreator:[link valueForKey:@"photo"] withSize:@"604"];
+//            }
+//            if ([_item.type isEqualToString:@"wall_photo"]) {
+//                heightContent = [self imageViewCreator:[link valueForKey:@"photo"] withSize:@"604"];
+//            }
+//            if ([_item.type isEqualToString:@"friend"]) {
+//                NSLog(@"%@", _item);
+//                NSLog(@"%@", link);
+//                for (NSString * nameID in _item.mediaURLs) {
+//                    [VKAPI getUserWithNameID:nameID completion:^(NSString *name) {
+//                        _item.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
+//                    }];
+//                }
+//
+//
+//            }
+//            if ([_item.type isEqualToString:@"audio"]) {
+//
+//            }
+//            if ([_item.type isEqualToString:@"video"]) {
+//                heightContent = [self imageViewCreator:link withSize:@"640"];
+//
+//            }
+//            if ([_item.type isEqualToString:@"note"]) {
+//
+//            }
+//}
+//        heightContent = _item.mediaURLs.count * heightContent;
+
+//        _infoView.frame = CGRectMake(_infoView.frame.origin.x,
+//                                     _infoView.frame.origin.y,
+//                                     _infoView.frame.size.width,
+//                                     heightContent);
+
+//self.mediaContentViewConstraint.constant = [_infoView.subviews lastObject].frame.size.height * _infoView.subviews.count;
+
+//}
 
 @end

@@ -17,4 +17,7 @@
 + (void)getDataWithCompletion:(void (^)(NSError * error))completion;
 + (BOOL)parseJson:(NSDictionary*)json;
 + (NSDate *)dateFormatted:(NSNumber*)time;
++ (void)getUserWithNameID:(NSString *)nameID
+               completion:(void (^)(NSString * name))completion;
+
 @end

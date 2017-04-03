@@ -38,6 +38,27 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
++ (void)getUserWithNameID:(NSString *)nameID
+                completion:(void (^)(NSString * name))completion {
+    VKRequest * getName = [VKRequest requestWithMethod:@"users.get" parameters:@{VK_API_USER_ID : nameID}];
+    [getName executeWithResultBlock:^(VKResponse * response) {
+        NSLog(@"Json result: %@", response.json);
+        if (response.json) {
+            NSArray * userInfo = response.json;
+            NSString * name = [NSString stringWithFormat:@"%@ %@", [userInfo valueForKey:@"first_name"], [userInfo valueForKey:@"last_name"]];
+            PERFORM_BLOCK(completion, name);
+        }
+    } errorBlock:^(NSError * error) {
+        if (error.code != VK_API_ERROR) {
+            [error.vkError.request repeat];
+        }
+        else {
+            NSLog(@"VK error: %@", error);
+            PERFORM_BLOCK(completion, nameID);
+        }
+    }];
+}
+
 + (void)getDataWithCompletion:(void (^)(NSError * error))completion {
     
     VKRequest * getWall = [VKRequest requestWithMethod:@"newsfeed.get" parameters:@{VK_API_OWNER_ID : @"-1"}];
@@ -73,9 +94,23 @@
                 NSArray * attachments = item[@"attachments"];
                 if (attachments.count > 0) {
                     for (NSArray * obj in attachments) {
-                        if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
-                            [mediaURLs addObject:[obj valueForKey:@"photo"]];
+                        if (![[obj valueForKey:@"type"] isEqualToString:@"photo"] &&
+                            [[obj valueForKey:@"type"] isEqualToString:@"video"] &&
+                            [[obj valueForKey:@"type"] isEqualToString:@"link"]) {
+                            
                         }
+                        
+                        //                        if ([[obj valueForKey:@"type"] isEqualToString:@"video"]) {
+                        //                            [mediaURLs addObject:[obj valueForKey:@"video"]];
+                        //                        }
+                        //                        if ([[obj valueForKey:@"type"] isEqualToString:@"link"]) {
+                        //                            [mediaURLs addObject:[obj valueForKey:@"link"]];
+                        //                        }
+                        //
+                        //                        if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
+                        //                            [mediaURLs addObject:[obj valueForKey:@"photo"]];
+                        //                        }
+                        [mediaURLs addObject:obj];
                     }
                 }
                 
@@ -148,13 +183,13 @@
                 NSArray * friends = item[@"friends"];
                 if (friends.count > 0) {
                     for (NSArray * obj in item[@"friends"][@"items"]) {
-                        [mediaURLs addObject:[obj valueForKey:@"user_id"]];
+                        [mediaURLs addObject:[[obj valueForKey:@"user_id"] stringValue]];
                     }
                 }
                 
                 [Item itemWithPostID:@""
                                 date:[self dateFormatted:item[@"date"]]
-                                text:@""
+                                text:@"Added:"
                                 type:item[@"type"]
                            mediaURLs:mediaURLs
                                likes:@""

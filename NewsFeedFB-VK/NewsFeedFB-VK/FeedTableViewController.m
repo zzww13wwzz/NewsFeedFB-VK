@@ -9,11 +9,13 @@
 #import "FeedTableViewController.h"
 #import "FeedTableViewCell.h"
 #import "VKAPI.h"
+#import "DetailViewController.h"
 
 @interface FeedTableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl * refreshControl;
 @property (strong, nonatomic) NSMutableArray * itemsArray;
+
 
 @end
 
@@ -112,6 +114,15 @@
     cell.item = _itemsArray[indexPath.row];
     [cell updateConstraintsIfNeeded];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DetailViewController * detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    detailVC.item = _itemsArray[indexPath.row];
+    
+    [self.navigationController pushViewController:detailVC
+                                         animated:YES];
 }
 
 - (void)showAlertWithString:(NSString *)string
