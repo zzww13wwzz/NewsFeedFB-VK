@@ -46,7 +46,7 @@
                                                subTitle:nil
                                                    view:self.view];
         
-        NSArray *scope = @[@"friends", @"wall", @"photos"];
+        NSArray *scope = @[@"friends", @"wall", @"photos", @"video"];
         if (![VKSdk isLoggedIn]) {
             [VKSdk wakeUpSession:scope completeBlock:^(VKAuthorizationState state, NSError *error) {
                 if (state == VKAuthorizationAuthorized) {

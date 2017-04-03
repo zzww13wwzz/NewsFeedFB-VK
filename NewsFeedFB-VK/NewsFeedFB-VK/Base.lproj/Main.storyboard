@@ -336,7 +336,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMx-jr-iVi">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="397.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="417.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fr-gx-hDw" userLabel="titleView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
@@ -393,14 +393,14 @@
                                                 <string key="userLabel">Carson &amp; Benjamin of @thephlschool K-A have been studying toys. What a great reason to learn how to build some in @TutoTOONS Treehouse Club!</string>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mT-bF-MgU">
-                                                <rect key="frame" x="15" y="141.5" width="345" height="211"/>
+                                                <rect key="frame" x="15" y="151.5" width="345" height="211"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="211" id="ZC4-6j-XW1"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSK-Dd-J0K" userLabel="bottom">
-                                                <rect key="frame" x="0.0" y="352.5" width="375" height="45"/>
+                                                <rect key="frame" x="0.0" y="372.5" width="375" height="45"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Yi-29-6UT">
                                                         <rect key="frame" x="25" y="0.0" width="350" height="1"/>
@@ -445,8 +445,8 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="2fr-gx-hDw" firstAttribute="leading" secondItem="FMx-jr-iVi" secondAttribute="leading" id="9ZN-8d-COG"/>
-                                            <constraint firstItem="0mT-bF-MgU" firstAttribute="top" secondItem="v8a-pD-Scl" secondAttribute="bottom" id="9pN-BL-PoJ"/>
-                                            <constraint firstItem="oSK-Dd-J0K" firstAttribute="top" secondItem="0mT-bF-MgU" secondAttribute="bottom" id="A3m-JX-Ydq"/>
+                                            <constraint firstItem="0mT-bF-MgU" firstAttribute="top" secondItem="v8a-pD-Scl" secondAttribute="bottom" constant="10" id="9pN-BL-PoJ"/>
+                                            <constraint firstItem="oSK-Dd-J0K" firstAttribute="top" secondItem="0mT-bF-MgU" secondAttribute="bottom" constant="10" id="A3m-JX-Ydq"/>
                                             <constraint firstItem="v8a-pD-Scl" firstAttribute="top" secondItem="2fr-gx-hDw" secondAttribute="bottom" id="BDJ-Xq-d7G"/>
                                             <constraint firstAttribute="trailing" secondItem="2fr-gx-hDw" secondAttribute="trailing" id="Bjk-aL-p5H"/>
                                             <constraint firstItem="0mT-bF-MgU" firstAttribute="leading" secondItem="FMx-jr-iVi" secondAttribute="leading" constant="15" id="KZy-vl-22u"/>

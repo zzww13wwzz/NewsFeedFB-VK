@@ -59,6 +59,27 @@
     }];
 }
 
++ (void)getVideoWithAccess:(NSString *)accessKey
+               completion:(void (^)(NSArray * json))completion {
+    VKRequest * getName = [VKRequest requestWithMethod:@"video.get" parameters:@{VK_API_ACCESS_KEY : accessKey}];
+    [getName executeWithResultBlock:^(VKResponse * response) {
+        NSLog(@"Json result: %@", response.json);
+        if (response.json) {
+//            NSArray * userInfo = response.json;
+//            NSString * name = [NSString stringWithFormat:@"%@ %@", [userInfo valueForKey:@"first_name"], [userInfo valueForKey:@"last_name"]];
+            PERFORM_BLOCK(completion, response.json);
+        }
+    } errorBlock:^(NSError * error) {
+        if (error.code != VK_API_ERROR) {
+            [error.vkError.request repeat];
+        }
+        else {
+            NSLog(@"VK error: %@", error);
+            PERFORM_BLOCK(completion, nil);
+        }
+    }];
+}
+
 + (void)getDataWithCompletion:(void (^)(NSError * error))completion {
     
     VKRequest * getWall = [VKRequest requestWithMethod:@"newsfeed.get" parameters:@{VK_API_OWNER_ID : @"-1"}];
@@ -99,17 +120,7 @@
                             [[obj valueForKey:@"type"] isEqualToString:@"link"]) {
                             
                         }
-                        
-                        //                        if ([[obj valueForKey:@"type"] isEqualToString:@"video"]) {
-                        //                            [mediaURLs addObject:[obj valueForKey:@"video"]];
-                        //                        }
-                        //                        if ([[obj valueForKey:@"type"] isEqualToString:@"link"]) {
-                        //                            [mediaURLs addObject:[obj valueForKey:@"link"]];
-                        //                        }
-                        //
-                        //                        if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
-                        //                            [mediaURLs addObject:[obj valueForKey:@"photo"]];
-                        //                        }
+
                         [mediaURLs addObject:obj];
                     }
                 }
@@ -125,17 +136,18 @@
             }
             
             if ([item[@"type"] isEqualToString:@"photo"]) {
-                
+                NSString * text = @"";
                 NSArray * photos = item[@"photos"];
                 if (photos.count > 0) {
                     for (NSArray * obj in item[@"photos"][@"items"]) {
                         [mediaURLs addObject:obj];
+                        text = [obj valueForKey:@"text"];
                     }
                 }
                 
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
-                                text:@""
+                                text:text
                                 type:item[@"type"]
                            mediaURLs:mediaURLs
                                likes:@""
@@ -143,17 +155,18 @@
                                owner:[item[@"source_id"] stringValue]];
             }
             if ([item[@"type"] isEqualToString:@"photo_tag"]) {
-                
+                NSString * text = @"";
                 NSArray * photos = item[@"photo_tags"];
                 if (photos.count > 0) {
                     for (NSArray * obj in item[@"photo_tags"][@"items"]) {
                         [mediaURLs addObject:obj];
+                        text = [obj valueForKey:@"text"];
                     }
                 }
                 
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
-                                text:@""
+                                text:text
                                 type:item[@"type"]
                            mediaURLs:mediaURLs
                                likes:@""
@@ -161,17 +174,18 @@
                                owner:[item[@"source_id"] stringValue]];
             }
             if ([item[@"type"] isEqualToString:@"wall_photo"]) {
-                
+                NSString * text = @"";
                 NSArray * photos = item[@"photos"];
                 if (photos.count > 0) {
                     for (NSArray * obj in item[@"photos"][@"items"]) {
                         [mediaURLs addObject:obj];
+                        text = [obj valueForKey:@"text"];
                     }
                 }
                 
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
-                                text:@""
+                                text:text
                                 type:item[@"type"]
                            mediaURLs:mediaURLs
                                likes:@""

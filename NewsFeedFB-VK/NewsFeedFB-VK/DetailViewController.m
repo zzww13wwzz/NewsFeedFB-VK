@@ -42,9 +42,54 @@
 # pragma mark - fillContent
 
 -(void)fillContent {
-    if (_item.mediaURLs.count > 0) {
-        
+    NSUInteger count = _item.mediaURLs.count;
+    if ( self.contentView.subviews.count >0) {
+        for (UIImageView *view in [self.contentView subviews]){
+            [view removeFromSuperview];
+        }
     }
+    if (count > 0) {
+        for (int i = 0; i < count; i++) {
+            NSURL * url = nil;
+            if ([_item.type isEqualToString:@"post"] ||
+                [_item.type isEqualToString:@"photo"] ||
+                [_item.type isEqualToString:@"wall_photo"] ||
+                [_item.type isEqualToString:@"photo_tag"]) {
+                NSArray * link = [self.item.mediaURLs objectAtIndex:i];
+                if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
+                    NSArray *data = [link valueForKey:@"photo"];
+                    url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
+                }
+            }
+            if ([_item.type isEqualToString:@"photo"]) {
+            
+            }
+            CGRect frame = CGRectMake(0,
+                                      (_contentView.frame.size.height) * i,
+                                      self.view.frame.size.width - _contentView.frame.origin.x*2,
+                                      _contentView.frame.size.height);
+            
+            UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
+            view.contentMode = UIViewContentModeScaleAspectFit;
+            view.backgroundColor = [UIColor redColor];
+            
+
+
+            [view sd_setImageWithURL:url];
+            
+            [self.contentView addSubview:view];
+        }
+    }
+    self.mediaContentHeightConstraint.constant = self.contentView.frame.size.height * count;
+    float cpn = self.mediaContentHeightConstraint.constant + self.bottomView.frame.size.height +1 +self.contentView.frame.origin.y;
+    
+    self.scrollContentView.frame = CGRectMake(_scrollContentView.frame.origin.x,
+                                              _scrollContentView.frame.origin.y,
+                                              self.scrollView.frame.size.width,
+                                              cpn);
+    
+    self.scrollView.scrollEnabled = (self.scrollView.contentSize.height < cpn);
+
 }
 
 

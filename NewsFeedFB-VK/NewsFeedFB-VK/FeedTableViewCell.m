@@ -49,35 +49,22 @@
     [self fillTextInfoOfPost];
     
     
-    
-    //    if (_item.mediaURLs.count == 0) {
-    //        _infoView.hidden = YES;
-    //        self.mediaContentViewConstraint.constant = 0;
-    //    }
-    //
-    //    if (_item.mediaURLs.count > 0) {
-    //
-    //
-    //        NSUInteger itemsCount = _item.mediaURLs.count;
-    //        NSLog(@"_item.mediaURLs ===== %lu", itemsCount);
-    ////        NSLog(@"_item.mediaURLs = %@", _item.mediaURLs);
-    
-    //[self createImageViewWithCount:itemsCount];
+
     
     
-    //        if ([_item.type isEqualToString:@"post"]) {
-    //            for (int i = 0; i < _item.mediaURLs.count; i++) {
-    //                NSArray * link = [self.item.mediaURLs objectAtIndex:i];
-    //                if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
-    //                    NSArray *data = [link valueForKey:@"photo"];
-    //                    [[_infoView.subviews objectAtIndex:i] sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
-    //                }
-    //                if ([[link valueForKey:@"type"] isEqualToString:@"link"]) {
-    //                    //                    NSArray *data = [link valueForKey:@"link"];
-    //                }
-    //
-    //            }
-    //        }
+//            if ([_item.type isEqualToString:@"post"]) {
+//                for (int i = 0; i < _item.mediaURLs.count; i++) {
+//                    NSArray * link = [self.item.mediaURLs objectAtIndex:i];
+//                    if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
+//                        NSArray *data = [link valueForKey:@"photo"];
+//                        [[_infoView.subviews objectAtIndex:i] sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
+//                    }
+//                    if ([[link valueForKey:@"type"] isEqualToString:@"link"]) {
+//                        //                    NSArray *data = [link valueForKey:@"link"];
+//                    }
+//    
+//                }
+//            }
     //        for (NSArray * link in _item.mediaURLs) {
     //                if ([[link valueForKey:@"type"] isEqualToString:@"video"]) {
     //                    //                    NSArray *data = [link valueForKey:@"video"];
@@ -118,74 +105,73 @@
 # pragma mark - fillTextInfoOfPost
 
 - (void)fillTextInfoOfPost {
-    //    if (!ValidString(_item.text)) {
-    //        _infoLabel.hidden = YES;
-    //    } else {
-    
+
     _infoLabel.text = _item.text;
-    // if (_infoLabel.text.le)
-//    CGFloat oldHeight = _infoLabel.frame.size.height;
-//    _infoLabel.frame  = CGRectMake(_infoLabel.frame.origin.x,
-//                                   _infoLabel.frame.origin.y,
-//                                   _infoLabel.frame.size.width,
-//                                   [self optimizationInfoTexteHeight]);
-//    if (oldHeight < _infoLabel.frame.size.height) {
-//        
-//    }
-    
-    //        if ([self optimizationInfoTexteHeight] > _infoLabel.frame.size.height) {
-    //            _moreLabel.hidden = NO;
-    //            _infoView.hidden = YES;
-    //            self.mediaContentViewConstraint.constant = 0;
-    //        } else {
-    //            _moreLabel.hidden = YES;
-    //        }
-    
-    //        NSString * match = [self parserMessageForLink];
-    //
-    //        if (ValidString(match)) {
-    //            NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]};
-    //
-    //            _infoLabel.attributedText = [[NSAttributedString alloc]initWithString:_item.text attributes:attributes];
-    //
-    //            [_infoLabel setLinkForSubstring:match withLinkHandler:^(FRHyperLabel *label, NSString *substring){
-    //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:match]];
-    //            }];
-    //        } else {
-    //            _infoLabel.text = _item.text;
-    //        }
-    //    }
     
     if (_item.mediaURLs.count > 1) {
         _moreLabel.hidden = NO;
     }
 
+    if ( _infoView.subviews.count > 0) {
+        for (UIImageView *view in [_infoView subviews]){
+            [view removeFromSuperview];
+        }
+    }
     if (_item.mediaURLs.count > 0) {
-        _infoView.hidden = NO;
-        if ([_item.type isEqualToString:@"post"]) {
+
+        NSURL * url = nil;
+        if ([_item.type isEqualToString:@"post"] ||
+            [_item.type isEqualToString:@"photo"] ||
+            [_item.type isEqualToString:@"wall_photo"] ||
+            [_item.type isEqualToString:@"photo_tag"]) {
             NSArray * link = [self.item.mediaURLs objectAtIndex:0];
             if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
                 NSArray *data = [link valueForKey:@"photo"];
-                if ( _infoView.subviews.count >0) {
-                    for (UIImageView *view in [_infoView subviews]){
-                        [view removeFromSuperview];
-                    }
-                }
+                url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
                 CGRect frame = CGRectMake(0,
                                           0,
-                                          _infoView.frame.size.width - _infoView.frame.origin.x*2,
+                                          self.frame.size.width - _infoView.frame.origin.x*2,
                                           _infoView.frame.size.height);
-                
                 
                 UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
                 view.contentMode = UIViewContentModeScaleAspectFit;
-                
-                [view sd_setImageWithURL:[NSURL URLWithString:[data valueForKey:@"photo_604"]]];
-                
+                view.backgroundColor = [UIColor redColor];
+                [view sd_setImageWithURL:url];
                 [_infoView addSubview:view];
-                
             }
         }
+        if ([_item.type isEqualToString:@"video"]) {
+            NSLog(@"%@", _item);
+            NSString *accessKey = @"";
+            for (NSArray * arr in self.item.mediaURLs) {
+                _infoLabel.text = [arr valueForKey:@"description"];
+                accessKey = [arr valueForKey:@"access_key"];
+                [VKAPI getVideoWithAccess:accessKey completion:^(NSArray *json) {
+                    NSLog(@"ARRAY = %@", json);
+                }];
+            }
+            
+//            NSArray *data = [link valueForKey:@"photo"];
+//            url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
+        }
+        
+        
+        
+        if ([_item.type isEqualToString:@"friend"]) {
+            NSLog(@"%@", _item);
+            for (NSString * nameID in _item.mediaURLs) {
+                [VKAPI getUserWithNameID:nameID completion:^(NSString *name) {
+                    _item.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
+                }];
+            }
+            _infoLabel.text = _item.text;
+            
+            
+        }
+        
+        
+        _infoView.hidden = NO;
+       
     } else {
         _infoView.hidden = YES;
         self.mediaContentViewConstraint.constant = 0;
