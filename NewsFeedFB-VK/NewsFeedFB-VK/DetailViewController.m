@@ -39,6 +39,8 @@
     [self fillTextInfoOfPost];
     [self fillContent];
     
+
+    
 }
 # pragma mark - fillContent
 
@@ -51,16 +53,29 @@
     }
     if (count > 0) {
         for (int i = 0; i < count; i++) {
+            NSLog(@"itme = %@", _item);
             NSURL * url = nil;
             if ([_item.type isEqualToString:@"post"] ||
                 [_item.type isEqualToString:@"photo"] ||
                 [_item.type isEqualToString:@"wall_photo"] ||
                 [_item.type isEqualToString:@"photo_tag"]) {
+                
+                
                 NSArray * link = [self.item.mediaURLs objectAtIndex:i];
                 if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
                     NSArray *data = [link valueForKey:@"photo"];
                     url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
                 }
+                if ([_item.type isEqualToString:@"wall_photo"]){
+                    url = [NSURL URLWithString:[link valueForKey:@"photo_604"]];
+                }
+                if ([[link valueForKey:@"type"] isEqualToString:@"video"]) {
+                    NSLog(@"VIDEO");
+                }
+                if ([[link valueForKey:@"type"] isEqualToString:@"link"]) {
+                    NSLog(@"LINK");
+                }
+                
                 if ([[link valueForKey:@"type"] isEqualToString:@"doc"]) {
                     NSArray * fields = [link valueForKey:@"doc"];
                     NSString * gifLink = [fields valueForKey:@"url"];
@@ -70,29 +85,56 @@
                     imageView.animatedImage = image;
                     CGRect frame = CGRectMake(0,
                                               0,
-                                              self.view.frame.size.width - self.contentView.frame.origin.x*2,
+                                              self.view.frame.size.width - _contentView.frame.origin.x*2,
                                               self.contentView.frame.size.height);
                     
                     imageView.frame = frame;
-                    [self.contentView addSubview:imageView];
+                    [_contentView addSubview:imageView];
+                    [FLAnimatedImage setLogBlock:^(NSString *logString, FLLogLevel logLevel) {
+                        // Using NSLog
+                        NSLog(@"%@", logString);
+                        
+                        // ...or CocoaLumberjackLogger only logging warnings and errors
+                        if (logLevel == FLLogLevelError) {
+                            NSLog(@"%@", logString);
+                        } else if (logLevel == FLLogLevelWarn) {
+                            NSLog(@"%@", logString);
+                        }
+                    } logLevel:FLLogLevelWarn];
                 }
-
+                CGRect frame = CGRectMake(0,
+                                          (_contentView.frame.size.height) * i,
+                                          self.view.frame.size.width - _contentView.frame.origin.x*2,
+                                          _contentView.frame.size.height);
+                
+                UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
+                view.contentMode = UIViewContentModeScaleAspectFit;
+                view.backgroundColor = [UIColor redColor];
+            
+                [view sd_setImageWithURL:url];
+                
+                [self.contentView addSubview:view];
             }
             
-            CGRect frame = CGRectMake(0,
-                                      (_contentView.frame.size.height) * i,
-                                      self.view.frame.size.width - _contentView.frame.origin.x*2,
-                                      _contentView.frame.size.height);
+            if ([_item.type isEqualToString:@"friend"]) {
+                NSLog(@"%@", _item);
+                for (NSString * nameID in _item.mediaURLs) {
+                    [VKAPI getUserWithNameID:nameID completion:^(NSString *name) {
+                        _messageLabel.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
+                        _contentView.hidden = YES;
+                        self.mediaContentHeightConstraint.constant = 0;
+                    }];
+                }
+            }
+            if (([_item.type isEqualToString:@"video"]) ||
+                ([_item.type isEqualToString:@"audio"])) {
+                _contentView.hidden = YES;
+                self.mediaContentHeightConstraint.constant = 0;
+            } else {
+                NSLog(@"_item.type = %@", _item.type);
+            }
             
-            UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
-            view.contentMode = UIViewContentModeScaleAspectFit;
-            view.backgroundColor = [UIColor redColor];
             
-            
-            
-            [view sd_setImageWithURL:url];
-            
-            [self.contentView addSubview:view];
         }
     }
     self.mediaContentHeightConstraint.constant = self.contentView.frame.size.height * count;

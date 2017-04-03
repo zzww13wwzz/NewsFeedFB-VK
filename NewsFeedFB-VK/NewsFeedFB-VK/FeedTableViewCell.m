@@ -88,7 +88,11 @@
             if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
                 
                 NSArray *data = [link valueForKey:@"photo"];
-                url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
+
+                url = [NSURL URLWithString:[data valueForKey:@"photo_130"]];
+                if (!url) {
+                    url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
+                }
 //                CGRect frame = CGRectMake(0,
 //                                          0,
 //                                          self.frame.size.width - _infoView.frame.origin.x*2,
@@ -122,8 +126,10 @@
 ////                [_infoView addSubview:imageView];
 //            }
             if ([_item.type isEqualToString:@"wall_photo"]){
-                NSLog(@"%@", _item);
-                url = [NSURL URLWithString:[link valueForKey:@"photo_604"]];
+                url = [NSURL URLWithString:[link valueForKey:@"photo_130"]];
+                if (!url) {
+                    url = [NSURL URLWithString:[link valueForKey:@"photo_604"]];
+                }
 //                CGRect frame = CGRectMake(0,
 //                                          0,
 //                                          self.frame.size.width - _infoView.frame.origin.x*2,
@@ -161,6 +167,8 @@
             for (NSString * nameID in _item.mediaURLs) {
                 [VKAPI getUserWithNameID:nameID completion:^(NSString *name) {
                     _infoLabel.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
+                    _infoView.hidden = YES;
+                    self.mediaContentViewConstraint.constant = 0;
                 }];
             }
         }
