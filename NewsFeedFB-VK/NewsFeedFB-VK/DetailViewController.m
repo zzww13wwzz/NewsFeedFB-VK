@@ -15,6 +15,13 @@
 
 
 @interface DetailViewController ()
+//<UIGestureRecognizerDelegate>
+//{
+//    UITapGestureRecognizer *tap;
+//    BOOL isFullScreen;
+//    CGRect prevFrame;
+//}
+
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -39,9 +46,10 @@
     [self fillTextInfoOfPost];
     [self fillContent];
     
-
     
 }
+
+
 # pragma mark - fillContent
 
 -(void)fillContent {
@@ -53,13 +61,11 @@
     }
     if (count > 0) {
         for (int i = 0; i < count; i++) {
-            NSLog(@"itme = %@", _item);
             NSURL * url = nil;
             if ([_item.type isEqualToString:@"post"] ||
                 [_item.type isEqualToString:@"photo"] ||
                 [_item.type isEqualToString:@"wall_photo"] ||
                 [_item.type isEqualToString:@"photo_tag"]) {
-                
                 
                 NSArray * link = [self.item.mediaURLs objectAtIndex:i];
                 if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
@@ -69,39 +75,6 @@
                 if ([_item.type isEqualToString:@"wall_photo"]){
                     url = [NSURL URLWithString:[link valueForKey:@"photo_604"]];
                 }
-                if ([[link valueForKey:@"type"] isEqualToString:@"video"]) {
-                    NSLog(@"VIDEO");
-                }
-                if ([[link valueForKey:@"type"] isEqualToString:@"link"]) {
-                    NSLog(@"LINK");
-                }
-                
-                if ([[link valueForKey:@"type"] isEqualToString:@"doc"]) {
-                    NSArray * fields = [link valueForKey:@"doc"];
-                    NSString * gifLink = [fields valueForKey:@"url"];
-                    
-                    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:gifLink]]];
-                    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
-                    imageView.animatedImage = image;
-                    CGRect frame = CGRectMake(0,
-                                              0,
-                                              self.view.frame.size.width - _contentView.frame.origin.x*2,
-                                              self.contentView.frame.size.height);
-                    
-                    imageView.frame = frame;
-                    [_contentView addSubview:imageView];
-                    [FLAnimatedImage setLogBlock:^(NSString *logString, FLLogLevel logLevel) {
-                        // Using NSLog
-                        NSLog(@"%@", logString);
-                        
-                        // ...or CocoaLumberjackLogger only logging warnings and errors
-                        if (logLevel == FLLogLevelError) {
-                            NSLog(@"%@", logString);
-                        } else if (logLevel == FLLogLevelWarn) {
-                            NSLog(@"%@", logString);
-                        }
-                    } logLevel:FLLogLevelWarn];
-                }
                 CGRect frame = CGRectMake(0,
                                           (_contentView.frame.size.height) * i,
                                           self.view.frame.size.width - _contentView.frame.origin.x*2,
@@ -109,32 +82,43 @@
                 
                 UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
                 view.contentMode = UIViewContentModeScaleAspectFit;
-                view.backgroundColor = [UIColor redColor];
-            
+                view.userInteractionEnabled = YES;
+                
+//                isFullScreen = false;
+//                tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen:)];
+//                tap.delegate = self;
+//                [view addGestureRecognizer:tap];
                 [view sd_setImageWithURL:url];
                 
                 [self.contentView addSubview:view];
             }
             
             if ([_item.type isEqualToString:@"friend"]) {
-                NSLog(@"%@", _item);
+                NSString *usersIDs = @"";
                 for (NSString * nameID in _item.mediaURLs) {
-                    [VKAPI getUserWithNameID:nameID completion:^(NSString *name) {
-                        _messageLabel.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
-                        _contentView.hidden = YES;
-                        self.mediaContentHeightConstraint.constant = 0;
-                    }];
+                    if ([nameID isEqualToString:@""]) {
+                        usersIDs = [NSString stringWithFormat:@"%@", nameID];
+                    } else {
+                        usersIDs = [NSString stringWithFormat:@"%@,%@",usersIDs, nameID];
+                    }
                 }
+                [VKAPI getUserWithUsersIDs:usersIDs completion:^(NSArray *array) {
+                    if (array) {
+                        NSString * name = @"";
+                        for (NSArray * info in array) {
+                            NSString *firstname = [info valueForKey:@"first_name"];
+                            NSString *lastName = [info valueForKey:@"last_name"];
+                            name = [NSString stringWithFormat:@"%@ %@ %@\n",name, firstname, lastName];
+                        }
+                        _messageLabel.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
+                    } else {
+                        _messageLabel.text = @"none";
+                    }
+                    
+                    _contentView.hidden = YES;
+                    self.mediaContentHeightConstraint.constant = 0;
+                }];
             }
-            if (([_item.type isEqualToString:@"video"]) ||
-                ([_item.type isEqualToString:@"audio"])) {
-                _contentView.hidden = YES;
-                self.mediaContentHeightConstraint.constant = 0;
-            } else {
-                NSLog(@"_item.type = %@", _item.type);
-            }
-            
-            
         }
     }
     self.mediaContentHeightConstraint.constant = self.contentView.frame.size.height * count;
@@ -146,8 +130,42 @@
                                               cpn);
     
     self.scrollView.scrollEnabled = (self.scrollView.contentSize.height < cpn);
-    
 }
+
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
+//{
+//    BOOL shouldReceiveTouch = YES;
+//    
+//    if (gestureRecognizer == tap) {
+//        for (UIImageView * imageView in self.contentView.subviews) {
+//            if (touch.view == imageView) {
+//                shouldReceiveTouch = (touch.view == imageView);
+//                [self.contentView bringSubviewToFront:imageView];
+//            }
+//        }
+//    }
+//    return shouldReceiveTouch;
+//}
+//-(void)imgToFullScreen:(UIGestureRecognizer *)sender {
+//    
+//    if (!isFullScreen) {
+//        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+//            //save previous frame
+//            prevFrame = sender.view.frame;
+//            [sender.view setFrame:[[UIScreen mainScreen] bounds]];
+//        }completion:^(BOOL finished){
+//            isFullScreen = true;
+//        }];
+//        return;
+//    } else {
+//        [UIView animateWithDuration:0.5 delay:0 options:0 animations:^{
+//            [sender.view setFrame:prevFrame];
+//        }completion:^(BOOL finished){
+//            isFullScreen = false;
+//        }];
+//        return;
+//    }
+//}
 
 
 # pragma mark - fillTextInfoOfPost

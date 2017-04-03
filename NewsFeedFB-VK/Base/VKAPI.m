@@ -38,41 +38,13 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
-+ (void)getUserWithNameID:(NSString *)nameID
-               completion:(void (^)(NSString * name))completion {
-    VKRequest * getName = [VKRequest requestWithMethod:@"users.get" parameters:@{VK_API_USER_ID : nameID}];
++ (void)getUserWithUsersIDs:(NSString *)usersIDs
+               completion:(void (^)(NSArray * array))completion {
+    VKRequest * getName = [VKRequest requestWithMethod:@"users.get" parameters:@{VK_API_USER_IDS : usersIDs}];
     [getName executeWithResultBlock:^(VKResponse * response) {
-        NSLog(@"Json result: %@", response.json);
         if (response.json) {
-            
-            NSString * name = @"";
-            for (NSArray * info in response.json) {
-                NSString *firstname = [info valueForKey:@"first_name"];
-                NSString *lastName = [info valueForKey:@"last_name"];
-                name = [NSString stringWithFormat:@"%@ %@ %@;",name, firstname, lastName];
-            }
-            PERFORM_BLOCK(completion, name);
-        }
-    } errorBlock:^(NSError * error) {
-        if (error.code != VK_API_ERROR) {
-            [error.vkError.request repeat];
-        }
-        else {
-            NSLog(@"VK error: %@", error);
-            PERFORM_BLOCK(completion, nameID);
-        }
-    }];
-}
-
-+ (void)getVideoWithAccess:(NSString *)accessKey
-                completion:(void (^)(NSArray * json))completion {
-    VKRequest * getName = [VKRequest requestWithMethod:@"video.get" parameters:@{VK_API_ACCESS_KEY : accessKey}];
-    [getName executeWithResultBlock:^(VKResponse * response) {
-        NSLog(@"Json result: %@", response.json);
-        if (response.json) {
-            //            NSArray * userInfo = response.json;
-            //            NSString * name = [NSString stringWithFormat:@"%@ %@", [userInfo valueForKey:@"first_name"], [userInfo valueForKey:@"last_name"]];
-            PERFORM_BLOCK(completion, response.json);
+            NSArray * array = response.json;
+            PERFORM_BLOCK(completion, array);
         }
     } errorBlock:^(NSError * error) {
         if (error.code != VK_API_ERROR) {
@@ -90,13 +62,11 @@
     VKRequest * getWall = [VKRequest requestWithMethod:@"newsfeed.get" parameters:@{VK_API_OWNER_ID : @"-1"}];
     
     [getWall executeWithResultBlock:^(VKResponse * response) {
-        //NSLog(@"Json result: %@", response.json);
         if (response.json) {
             BOOL isDoneParse = [self parseJson:response.json];
             if (isDoneParse) {
                 [ApplicationDelegate saveDB];
             }
-            
             PERFORM_BLOCK(completion, nil);
         }
     } errorBlock:^(NSError * error) {
@@ -120,19 +90,12 @@
                 NSArray * attachments = item[@"attachments"];
                 if (attachments.count > 0) {
                     for (NSArray * obj in attachments) {
-                        if (![[obj valueForKey:@"type"] isEqualToString:@"photo"] &&
-                            [[obj valueForKey:@"type"] isEqualToString:@"video"] &&
-                            [[obj valueForKey:@"type"] isEqualToString:@"link"]) {
-                            
+                        if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
+                          [mediaURLs addObject:obj];
                         }
-                        
-                        [mediaURLs addObject:obj];
                     }
                 }
-                if (mediaURLs.count == 0) {
-                    NSLog(@"AHTUNG!!!post");
-                }
-                
+                if (mediaURLs.count > 0) {
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
                                 text:item[@"text"]
@@ -141,6 +104,7 @@
                                likes:[item[@"likes"][@"count"] stringValue]
                             reposted:[item[@"reposts"][@"count"] stringValue]
                                owner:[item[@"source_id"] stringValue]];
+                }
             }
             
             if ([item[@"type"] isEqualToString:@"photo"]) {
@@ -152,10 +116,7 @@
                         text = [obj valueForKey:@"text"];
                     }
                 }
-                
-                if (mediaURLs.count == 0) {
-                    NSLog(@"AHTUNG!!!photo");
-                }
+
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
                                 text:text
@@ -174,10 +135,6 @@
                         text = [obj valueForKey:@"text"];
                     }
                 }
-                if (mediaURLs.count == 0) {
-                    NSLog(@"AHTUNG!!!photo_tag");
-                }
-                
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
                                 text:text
@@ -196,10 +153,6 @@
                         text = [obj valueForKey:@"text"];
                     }
                 }
-                if (mediaURLs.count == 0) {
-                    NSLog(@"AHTUNG!!!wall_photo");
-                }
-                
                 [Item itemWithPostID:[item[@"post_id"] stringValue]
                                 date:[self dateFormatted:item[@"date"]]
                                 text:text
@@ -218,10 +171,6 @@
                     }
                 }
                 
-                if (mediaURLs.count == 0) {
-                    NSLog(@"AHTUNG!!!friend");
-                }
-
                 [Item itemWithPostID:@""
                                 date:[self dateFormatted:item[@"date"]]
                                 text:@"Added:"
@@ -230,67 +179,6 @@
                                likes:@""
                             reposted:@""
                                owner:[item[@"source_id"] stringValue]];
-            }
-            if ([item[@"type"] isEqualToString:@"note"]) {
-                /*
-                 NSArray * photos = item[@"photos"];
-                 if (photos.count > 0) {
-                 for (NSArray * obj in item[@"photos"][@"items"]) {
-                 [mediaURLs addObject:obj];
-                 }
-                 }
-                 
-                 [Item itemWithPostID:[item[@"post_id"] stringValue]
-                 date:[self dateFormatted:item[@"date"]]
-                 text:@""
-                 type:item[@"type"]
-                 mediaURLs:mediaURLs
-                 likes:@""
-                 reposted:@""
-                 owner:[item[@"source_id"] stringValue]];
-                 */
-            }
-            if ([item[@"type"] isEqualToString:@"audio"]) {
-                
-                NSArray * audio = item[@"audio"];
-                if (audio.count > 0) {
-                    for (NSArray * obj in item[@"audio"][@"items"]) {
-                        [mediaURLs addObject:obj];
-                    }
-                }
-                
-                [Item itemWithPostID:[item[@"post_id"] stringValue]
-                                date:[self dateFormatted:item[@"date"]]
-                                text:@""
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
-                               owner:[item[@"source_id"] stringValue]];
-                
-            }
-            if ([item[@"type"] isEqualToString:@"video"]) {
-                
-                NSArray * video = item[@"video"];
-                if (video.count > 0) {
-                    for (NSArray * obj in item[@"video"][@"items"]) {
-                        [mediaURLs addObject:obj];
-                    }
-                }
-                
-                if (mediaURLs.count == 0) {
-                    NSLog(@"AHTUNG!!!video");
-                }
-                
-                [Item itemWithPostID:@""
-                                date:[self dateFormatted:item[@"date"]]
-                                text:@""
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
-                               owner:[item[@"source_id"] stringValue]];
-                
             }
         }
     }

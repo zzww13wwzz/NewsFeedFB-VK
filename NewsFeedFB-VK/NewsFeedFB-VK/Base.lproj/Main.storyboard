@@ -135,7 +135,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rj4-qa-3Tb" userLabel="titleView">
+                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rj4-qa-3Tb" userLabel="titleView">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WDl-qQ-7YO">
@@ -177,7 +177,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="J6C-V1-R8H" secondAttribute="trailing" id="tmb-tz-M5d"/>
                                             </constraints>
                                         </view>
-                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEc-oX-V2e">
+                                        <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEc-oX-V2e">
                                             <rect key="frame" x="8" y="65" width="359" height="64"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJB-ZW-IX9" customClass="FRHyperLabel">
@@ -196,14 +196,14 @@
                                                 <constraint firstAttribute="trailing" secondItem="bJB-ZW-IX9" secondAttribute="trailing" constant="20" id="PQj-S4-x5K"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emd-99-4LQ" userLabel="central">
+                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emd-99-4LQ" userLabel="central">
                                             <rect key="frame" x="8" y="129" width="359" height="200"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iXT-dz-lsc">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="200"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="iXT-dz-lsc" secondAttribute="bottom" id="3qU-RD-lh0"/>
                                                 <constraint firstItem="iXT-dz-lsc" firstAttribute="leading" secondItem="emd-99-4LQ" secondAttribute="leading" id="5Xv-iz-CnN"/>
@@ -212,7 +212,7 @@
                                                 <constraint firstItem="iXT-dz-lsc" firstAttribute="top" secondItem="emd-99-4LQ" secondAttribute="top" id="yfO-K1-8oY"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDo-7G-84H" userLabel="bottom">
+                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDo-7G-84H" userLabel="bottom">
                                             <rect key="frame" x="0.0" y="350" width="375" height="45"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyz-cF-trw">
@@ -253,7 +253,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="hyz-cF-trw" secondAttribute="trailing" id="uq7-mm-WFZ"/>
                                             </constraints>
                                         </view>
-                                        <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5H-Tr-jUm">
+                                        <view userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T5H-Tr-jUm">
                                             <rect key="frame" x="0.0" y="396" width="375" height="4"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -413,13 +413,6 @@
                                                 <nil key="highlightedColor"/>
                                                 <string key="userLabel">Carson &amp; Benjamin of @thephlschool K-A have been studying toys. What a great reason to learn how to build some in @TutoTOONS Treehouse Club!</string>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mT-bF-MgU">
-                                                <rect key="frame" x="15" y="151.5" width="345" height="211"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="211" id="ZC4-6j-XW1"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSK-Dd-J0K" userLabel="bottom">
                                                 <rect key="frame" x="0.0" y="372.5" width="375" height="45"/>
                                                 <subviews>
@@ -460,6 +453,13 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="pnd-Yi-qPj"/>
                                                     <constraint firstItem="50s-qv-FKC" firstAttribute="leading" secondItem="oSK-Dd-J0K" secondAttribute="leading" constant="25" id="r6c-th-WQf"/>
                                                     <constraint firstAttribute="trailing" secondItem="rWj-am-grQ" secondAttribute="trailing" constant="15" id="yLr-Nu-Oll"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mT-bF-MgU">
+                                                <rect key="frame" x="15" y="151" width="345" height="211"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="211" id="ZC4-6j-XW1"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

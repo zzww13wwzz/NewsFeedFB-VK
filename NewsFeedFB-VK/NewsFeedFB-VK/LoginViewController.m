@@ -13,7 +13,6 @@
 #import "FeedTableViewController.h"
 
 
-
 @interface LoginViewController () <VKSdkDelegate, VKSdkUIDelegate>
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
@@ -123,15 +122,9 @@
 -(void)fetchFacebookState {
     if ([FBSDKAccessToken currentAccessToken]) {
         NSLog(@"Token is available : %@",[[FBSDKAccessToken currentAccessToken]tokenString]);
-        
-        //        [ApplicationDelegate showMBProgressHUDWithTitle:@"Facebook account state updating..."
-        //                                               subTitle:nil
-        //                                                   view:self.view];
-        //
         [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/feed"
                                            parameters:nil]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-             //             [ApplicationDelegate.mbprogressHUD hideAnimated:NO];
              if (!error) {
                  NSLog(@"result = %@",result);
              } else {

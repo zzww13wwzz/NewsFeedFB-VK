@@ -40,13 +40,15 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:false animated:false];
-    
 }
 
 - (void) setItem:(Item *)item {
     _item = item;
     _moreLabel.hidden = YES;
-
+    
+    _infoView.hidden = false;
+    self.mediaContentViewConstraint.constant = 200;
+    
     [self fillOwnerInfo];
     [self fillLikeAndRepostInfo];
     [self fillTextInfoOfPost];
@@ -56,129 +58,61 @@
 # pragma mark - fillTextInfoOfPost
 
 - (void)fillTextInfoOfPost {
-//    if ( _infoView.subviews.count > 0) {
-//        for (UIImageView *view in [_infoView subviews]){
-//            [view removeFromSuperview];
-//        }
-//        for (UILabel *view in [_infoView subviews]){
-//            [view removeFromSuperview];
-//        }
-//    }
     
     _infoLabel.text = _item.text;
-    NSArray * arr = _item.mediaURLs;
-    if ((_item.mediaURLs.count > 1) ||
-        ([_item.type isEqualToString:@"video"]) ||
-        ([_item.type isEqualToString:@"audio"])){
+    
+    if (_item.mediaURLs.count > 1) {
         _moreLabel.hidden = NO;
     } else {
         _moreLabel.hidden = YES;
     }
     
     if (_item.mediaURLs.count > 0) {
-        NSLog(@"_item.type = %@", _item.type);
+        
         NSURL * url = nil;
         if ([_item.type isEqualToString:@"post"] ||
             [_item.type isEqualToString:@"photo"] ||
             [_item.type isEqualToString:@"wall_photo"] ||
             [_item.type isEqualToString:@"photo_tag"]) {
-
+            
             
             NSArray * link = [self.item.mediaURLs objectAtIndex:0];
             if ([[link valueForKey:@"type"] isEqualToString:@"photo"]) {
                 
                 NSArray *data = [link valueForKey:@"photo"];
-
-                url = [NSURL URLWithString:[data valueForKey:@"photo_130"]];
-                if (!url) {
                     url = [NSURL URLWithString:[data valueForKey:@"photo_604"]];
-                }
-//                CGRect frame = CGRectMake(0,
-//                                          0,
-//                                          self.frame.size.width - _infoView.frame.origin.x*2,
-//                                          _infoView.frame.size.height);
-//                
-//                UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
-//                view.contentMode = UIViewContentModeScaleAspectFit;
-                [_postImageView sd_setImageWithURL:url];
-//                [_infoView addSubview:view];
-            }
-            
-//            if ([[link valueForKey:@"type"] isEqualToString:@"doc"]) {
-//                
-//                UILabel * gif = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width - _infoView.frame.origin.x*2, 40)];
-//                gif.textAlignment = NSTextAlignmentCenter;
-//                gif.text = @"Tap to see gif";
-//                [_infoView addSubview:gif];
-//                self.mediaContentViewConstraint.constant = 40;
-////                NSArray * fields = [link valueForKey:@"doc"];
-////                NSString * gifLink = [fields valueForKey:@"url"];
-////                
-////                FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:gifLink]]];
-////                FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
-////                imageView.animatedImage = image;
-////                CGRect frame = CGRectMake(0,
-////                                          0,
-////                                          self.frame.size.width - _infoView.frame.origin.x*2,
-////                                          _infoView.frame.size.height);
-////                
-////                imageView.frame = frame;
-////                [_infoView addSubview:imageView];
-//            }
-            if ([_item.type isEqualToString:@"wall_photo"]){
-                url = [NSURL URLWithString:[link valueForKey:@"photo_130"]];
-                if (!url) {
-                    url = [NSURL URLWithString:[link valueForKey:@"photo_604"]];
-                }
-//                CGRect frame = CGRectMake(0,
-//                                          0,
-//                                          self.frame.size.width - _infoView.frame.origin.x*2,
-//                                          _infoView.frame.size.height);
-//                
-//                UIImageView *view =[[UIImageView alloc] initWithFrame:frame];
-//                view.contentMode = UIViewContentModeScaleAspectFit;
-//                [view sd_setImageWithURL:url];
-//                [_infoView addSubview:view];
                 [self.postImageView sd_setImageWithURL:url];
             }
-            
-            if ([[link valueForKey:@"type"] isEqualToString:@"video"] || [[link valueForKey:@"type"] isEqualToString:@"link"] || [[link valueForKey:@"type"] isEqualToString:@"doc"]) {
-                _moreLabel.hidden = NO;
+            if ([_item.type isEqualToString:@"wall_photo"]){
+                    url = [NSURL URLWithString:[link valueForKey:@"photo_604"]];
+                [self.postImageView sd_setImageWithURL:url];
+            }
+        }
+        if ([_item.type isEqualToString:@"friend"]) {
+            NSString *usersIDs = @"";
+            for (NSString * nameID in _item.mediaURLs) {
+                if ([nameID isEqualToString:@""]) {
+                    usersIDs = [NSString stringWithFormat:@"%@", nameID];
+                } else {
+                    usersIDs = [NSString stringWithFormat:@"%@,%@",usersIDs, nameID];
+                }
+            }
+            [VKAPI getUserWithUsersIDs:usersIDs completion:^(NSArray *array) {
+                if (array) {
+                    NSString * name = @"";
+                    for (NSArray * info in array) {
+                        NSString *firstname = [info valueForKey:@"first_name"];
+                        NSString *lastName = [info valueForKey:@"last_name"];
+                        name = [NSString stringWithFormat:@"%@ %@ %@;",name, firstname, lastName];
+                    }
+                    _infoLabel.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
+                } else {
+                    _infoLabel.text = @"none";
+                }
+                
                 _infoView.hidden = YES;
                 self.mediaContentViewConstraint.constant = 0;
-                
-            }
-        }
-        //        if ([_item.type isEqualToString:@"video"]) {
-        //            NSLog(@"%@", _item);
-        //            NSString *accessKey = @"";
-        //            for (NSArray * arr in self.item.mediaURLs) {
-        //                _infoLabel.text = [arr valueForKey:@"description"];
-        //                accessKey = [arr valueForKey:@"access_key"];
-        //
-        //                [VKAPI getVideoWithAccess:accessKey completion:^(NSArray *json) {
-        //                    NSLog(@"ARRAY = %@", json);
-        //                }];
-        //            }
-        //        }
-        
-        if ([_item.type isEqualToString:@"friend"]) {
-            NSLog(@"%@", _item);
-            for (NSString * nameID in _item.mediaURLs) {
-                [VKAPI getUserWithNameID:nameID completion:^(NSString *name) {
-                    _infoLabel.text = [NSString stringWithFormat:@"%@ %@" , _item.text, name];
-                    _infoView.hidden = YES;
-                    self.mediaContentViewConstraint.constant = 0;
-                }];
-            }
-        }
-        
-        if (([_item.type isEqualToString:@"video"]) ||
-            ([_item.type isEqualToString:@"audio"])) {
-            _infoView.hidden = YES;
-            self.mediaContentViewConstraint.constant = 0;
-        } else {
-            _infoView.hidden = NO;
+            }];
         }
     } else {
         _infoView.hidden = YES;

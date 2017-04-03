@@ -120,7 +120,6 @@
     if (item.mediaURLs.count == 0) {
         return height;
     } else {
-        NSLog(@"_item.type = %@", item.type);
         if ([item.type isEqualToString:@"photo"] ||
             [item.type isEqualToString:@"wall_photo"] ||
             [item.type isEqualToString:@"photo_tag"]) {

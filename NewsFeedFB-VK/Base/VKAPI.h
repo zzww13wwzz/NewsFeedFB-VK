@@ -17,9 +17,8 @@
 + (void)getDataWithCompletion:(void (^)(NSError * error))completion;
 + (BOOL)parseJson:(NSDictionary*)json;
 + (NSDate *)dateFormatted:(NSNumber*)time;
-+ (void)getUserWithNameID:(NSString *)nameID
-               completion:(void (^)(NSString * name))completion;
-+ (void)getVideoWithAccess:(NSString *)accessKey
-                completion:(void (^)(NSArray * json))completion;
++ (void)getUserWithUsersIDs:(NSString *)usersIDs
+               completion:(void (^)(NSArray * array))completion;
+
 
 @end
