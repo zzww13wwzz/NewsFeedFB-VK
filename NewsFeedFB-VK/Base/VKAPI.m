@@ -39,7 +39,7 @@
 }
 
 + (void)getUserWithUsersIDs:(NSString *)usersIDs
-               completion:(void (^)(NSArray * array))completion {
+                 completion:(void (^)(NSArray * array))completion {
     VKRequest * getName = [VKRequest requestWithMethod:@"users.get" parameters:@{VK_API_USER_IDS : usersIDs}];
     [getName executeWithResultBlock:^(VKResponse * response) {
         if (response.json) {
@@ -85,99 +85,80 @@
     if (json[@"items"]) {
         for (NSDictionary * item in json[@"items"]) {
             NSMutableArray * mediaURLs = [NSMutableArray new];
+            NSString * text = @"";
+            NSString * likeCount = @"";
+            NSString * reposted = @"";
+            NSString * postID = [item[@"post_id"] stringValue];
             
             if ([item[@"type"] isEqualToString:@"post"]) {
+                text = item[@"text"];
+                likeCount = [item[@"likes"][@"count"] stringValue];
+                reposted = [item[@"reposts"][@"count"] stringValue];
+                
                 NSArray * attachments = item[@"attachments"];
                 if (attachments.count > 0) {
                     for (NSArray * obj in attachments) {
                         if ([[obj valueForKey:@"type"] isEqualToString:@"photo"]) {
-                          [mediaURLs addObject:obj];
+                            [mediaURLs addObject:obj];
                         }
                     }
                 }
                 if (mediaURLs.count > 0) {
-                [Item itemWithPostID:[item[@"post_id"] stringValue]
-                                date:[self dateFormatted:item[@"date"]]
-                                text:item[@"text"]
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:[item[@"likes"][@"count"] stringValue]
-                            reposted:[item[@"reposts"][@"count"] stringValue]
-                               owner:[item[@"source_id"] stringValue]];
+                    [Item itemWithPostID:postID
+                                    date:[self dateFormatted:item[@"date"]]
+                                    text:text
+                                    type:item[@"type"]
+                               mediaURLs:mediaURLs
+                                   likes:likeCount
+                                reposted:reposted
+                                   owner:[item[@"source_id"] stringValue]];
                 }
-            }
-            
-            if ([item[@"type"] isEqualToString:@"photo"]) {
-                NSString * text = @"";
-                NSArray * photos = item[@"photos"];
-                if (photos.count > 0) {
-                    for (NSArray * obj in item[@"photos"][@"items"]) {
-                        [mediaURLs addObject:obj];
-                        text = [obj valueForKey:@"text"];
+            } else {
+                if ([item[@"type"] isEqualToString:@"photo"]) {
+                    NSArray * photos = item[@"photos"];
+                    if (photos.count > 0) {
+                        for (NSArray * obj in item[@"photos"][@"items"]) {
+                            [mediaURLs addObject:obj];
+                            text = [obj valueForKey:@"text"];
+                        }
                     }
                 }
-
-                [Item itemWithPostID:[item[@"post_id"] stringValue]
+                if ([item[@"type"] isEqualToString:@"photo_tag"]) {
+                    //NSString * text = @"";
+                    NSArray * photos = item[@"photo_tags"];
+                    if (photos.count > 0) {
+                        for (NSArray * obj in item[@"photo_tags"][@"items"]) {
+                            [mediaURLs addObject:obj];
+                            text = [obj valueForKey:@"text"];
+                        }
+                    }
+                }
+                if ([item[@"type"] isEqualToString:@"wall_photo"]) {
+                    NSArray * photos = item[@"photos"];
+                    if (photos.count > 0) {
+                        for (NSArray * obj in item[@"photos"][@"items"]) {
+                            [mediaURLs addObject:obj];
+                            text = [obj valueForKey:@"text"];
+                        }
+                    }
+                }
+                if ([item[@"type"] isEqualToString:@"friend"]) {
+                    text = @"Added:";
+                    postID = @"";
+                    NSArray * friends = item[@"friends"];
+                    if (friends.count > 0) {
+                        for (NSArray * obj in item[@"friends"][@"items"]) {
+                            [mediaURLs addObject:[[obj valueForKey:@"user_id"] stringValue]];
+                        }
+                    }
+                }
+                [Item itemWithPostID:postID
                                 date:[self dateFormatted:item[@"date"]]
                                 text:text
                                 type:item[@"type"]
                            mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
-                               owner:[item[@"source_id"] stringValue]];
-            }
-            if ([item[@"type"] isEqualToString:@"photo_tag"]) {
-                NSString * text = @"";
-                NSArray * photos = item[@"photo_tags"];
-                if (photos.count > 0) {
-                    for (NSArray * obj in item[@"photo_tags"][@"items"]) {
-                        [mediaURLs addObject:obj];
-                        text = [obj valueForKey:@"text"];
-                    }
-                }
-                [Item itemWithPostID:[item[@"post_id"] stringValue]
-                                date:[self dateFormatted:item[@"date"]]
-                                text:text
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
-                               owner:[item[@"source_id"] stringValue]];
-            }
-            if ([item[@"type"] isEqualToString:@"wall_photo"]) {
-                NSString * text = @"";
-                NSArray * photos = item[@"photos"];
-                if (photos.count > 0) {
-                    for (NSArray * obj in item[@"photos"][@"items"]) {
-                        [mediaURLs addObject:obj];
-                        text = [obj valueForKey:@"text"];
-                    }
-                }
-                [Item itemWithPostID:[item[@"post_id"] stringValue]
-                                date:[self dateFormatted:item[@"date"]]
-                                text:text
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
-                               owner:[item[@"source_id"] stringValue]];
-            }
-            if ([item[@"type"] isEqualToString:@"friend"]) {
-                
-                NSArray * friends = item[@"friends"];
-                if (friends.count > 0) {
-                    for (NSArray * obj in item[@"friends"][@"items"]) {
-                        [mediaURLs addObject:[[obj valueForKey:@"user_id"] stringValue]];
-                    }
-                }
-                
-                [Item itemWithPostID:@""
-                                date:[self dateFormatted:item[@"date"]]
-                                text:@"Added:"
-                                type:item[@"type"]
-                           mediaURLs:mediaURLs
-                               likes:@""
-                            reposted:@""
+                               likes:likeCount
+                            reposted:reposted
                                owner:[item[@"source_id"] stringValue]];
             }
         }
