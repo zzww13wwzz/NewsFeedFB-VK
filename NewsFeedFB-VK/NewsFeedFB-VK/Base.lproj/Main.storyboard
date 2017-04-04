@@ -96,25 +96,6 @@
             </objects>
             <point key="canvasLocation" x="-1129" y="62"/>
         </scene>
-        <!--Launch View Controller-->
-        <scene sceneID="gzX-Zg-5hp">
-            <objects>
-                <viewController id="zRL-1O-8fG" customClass="LaunchViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bFC-ys-QBu"/>
-                        <viewControllerLayoutGuide type="bottom" id="9pA-kn-jLO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Occ-Bg-eME">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="jaG-UE-NFi"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="och-iJ-Xbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1866" y="-1088"/>
-        </scene>
         <!--Feed-->
         <scene sceneID="Vyd-Ao-hKp">
             <objects>

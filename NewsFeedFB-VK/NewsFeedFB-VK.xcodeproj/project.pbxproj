@@ -10,7 +10,6 @@
 		9A333934F66AD361A3A27E4C /* libPods-NewsFeedFB-VK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3E7A7F057655563FE19D7E /* libPods-NewsFeedFB-VK.a */; };
 		B8577D2A1E91A12400E8B92B /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8577D291E91A12400E8B92B /* DetailViewController.m */; };
 		B86686AD1E8E644100859C21 /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86686AC1E8E644100859C21 /* FeedTableViewController.m */; };
-		B86F1ED41E8FA3D600CD8E8B /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */; };
 		B86F1ED81E901F6500CD8E8B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B86F1ED71E901F6500CD8E8B /* Reachability.m */; };
 		B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E11E8D2ACB00A1D178 /* FeedTableViewCell.m */; };
 		B87519F31E8D5C2900A1D178 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = B87519E81E8D5C2900A1D178 /* Group.m */; };
@@ -40,8 +39,6 @@
 		B8577D291E91A12400E8B92B /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		B86686AB1E8E644100859C21 /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
 		B86686AC1E8E644100859C21 /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
-		B86F1ED21E8FA3D600CD8E8B /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
-		B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		B86F1ED61E901F6500CD8E8B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability/Reachability.h; sourceTree = "<group>"; };
 		B86F1ED71E901F6500CD8E8B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability/Reachability.m; sourceTree = "<group>"; };
 		B87519DF1E8D184F00A1D178 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -120,8 +117,6 @@
 				B8FE31FE1E8AC74000DBB238 /* LoginViewController.m */,
 				B86686AB1E8E644100859C21 /* FeedTableViewController.h */,
 				B86686AC1E8E644100859C21 /* FeedTableViewController.m */,
-				B86F1ED21E8FA3D600CD8E8B /* LaunchViewController.h */,
-				B86F1ED31E8FA3D600CD8E8B /* LaunchViewController.m */,
 				B8577D281E91A12400E8B92B /* DetailViewController.h */,
 				B8577D291E91A12400E8B92B /* DetailViewController.m */,
 			);
@@ -343,7 +338,6 @@
 				B87519E21E8D2ACB00A1D178 /* FeedTableViewCell.m in Sources */,
 				B87519F71E8D5C2900A1D178 /* User.m in Sources */,
 				B8577D2A1E91A12400E8B92B /* DetailViewController.m in Sources */,
-				B86F1ED41E8FA3D600CD8E8B /* LaunchViewController.m in Sources */,
 				B86F1ED81E901F6500CD8E8B /* Reachability.m in Sources */,
 				B8FE31FC1E8AC74000DBB238 /* AppDelegate.m in Sources */,
 				B8FE31F91E8AC74000DBB238 /* main.m in Sources */,
